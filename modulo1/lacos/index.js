@@ -39,8 +39,34 @@ if (quantidade === 0) {
     console.log(bichinho)
 }
 
-//Exercício
+//Exercício 2 
+//a)
 const arrayOriginal = [1,2,3,4,5]
 function cadaValor() {
-
+    for (let array of arrayOriginal) {
+        console.log(array)
+    }
 }
+console.log(cadaValor(arrayOriginal))
+//b)
+const arrayOriginal = [1,2,3,4,5]
+function cadaValor() {
+    for (let array of arrayOriginal) {
+        console.log(array/10)
+    }
+}
+console.log(cadaValor(arrayOriginal))
+//c)
+const arrayOriginal = [1,2,3,4,5]
+const arrayNovo = []
+function cadaValor() {
+    for (let array of arrayOriginal) {
+        if (array % 2 === 0) {
+            arrayNovo.push(array)
+        }
+    }
+}
+cadaValor()
+console.log(arrayNovo)
+//d)
+//e)
