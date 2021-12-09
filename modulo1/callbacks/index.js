@@ -60,7 +60,7 @@ console.log(arrayComNomes)
 //b)]
 const temDesconto = produtos.map((item) => {
     const desconto = item.preco - item.preco * 5 / 100
-    const comDesconto = {nome: item.nome, preco: desconto}
+    const comDesconto = {nome: item.nome, preco: desconto.toFixed(2)}
     return comDesconto
  })
 console.log(temDesconto)
@@ -76,4 +76,12 @@ const nomeYpe = produtos.filter((item) => {
 })
 console.log(nomeYpe)
 //e)
-// Terminando
+const frases = produtos.map((item) => {
+    let frase = `Compre ${item.nome}  por ${item.preco}.`           
+    return frase
+ })
+ const frasesYpe = frases.filter((frase) => {
+        return frase.includes("Ypê")
+ })
+ console.log(frasesYpe)
+
