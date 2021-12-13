@@ -10,9 +10,9 @@ function retornaTamanhoArray(array) {
 console.log(retornaTamanhoArray([3, 2, 1, 4, 7]))
 // EXERCÍCIO 02
 function retornaArrayInvertido(array) {
-  
+  return array.reverse()
 }
-
+console.log(retornaArrayInvertido([8, 23, 16, 10]))
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
   
