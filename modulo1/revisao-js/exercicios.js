@@ -23,13 +23,14 @@ function retornaArrayOrdenado(array) {
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
-  
-}
+    const arrayPar = array.filter(item => (item %2) === 0);
+     return arrayPar
+ }
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
- 
-}
+   
+} 
 
 // EXERCÍCIO 06
 function retornaMaiorNumero(array) {
