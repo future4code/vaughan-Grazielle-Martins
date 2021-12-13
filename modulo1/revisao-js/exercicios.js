@@ -50,7 +50,20 @@ function retornaMaiorNumero(array) {
 }
 // EXERCÍCIO 07
 function retornaObjetoEntreDoisNumeros(num1, num2) {
-  
+    let numeros = {}
+    let menor = Math.min(num1,num2)
+   
+    if (num1 > num2) {
+        numeros.maiorNumero = num1
+    } else if (num2 > num1){
+        numeros.maiorNumero = num2
+    }else {
+        numeros.maiorNumero = num1
+    }
+
+    numeros.maiorDivisivelPorMenor = numeros.maiorNumero % menor === 0 
+    numeros.diferenca = numeros.maiorNumero - menor
+    return numeros
 }
 
 // EXERCÍCIO 08
