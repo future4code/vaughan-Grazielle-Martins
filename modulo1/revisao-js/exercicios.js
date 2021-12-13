@@ -50,7 +50,7 @@ function retornaMaiorNumero(array) {
 }
 // EXERCÍCIO 07
 function retornaObjetoEntreDoisNumeros(num1, num2) {
-
+  
 }
 
 // EXERCÍCIO 08
@@ -60,8 +60,16 @@ function retornaNPrimeirosPares(n) {
 
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
-
-}
+   let tipoDeTriangulo = ""
+     if ( ladoA === ladoB && ladoB === ladoC){
+        tipoDeTriangulo = "Equilátero";      
+     }else if(ladoA !== ladoB && ladoB !== ladoC && ladoC !== ladoA){
+         tipoDeTriangulo = "Escaleno";
+     }else{
+         tipoDeTriangulo ="Isósceles";
+     }
+     return tipoDeTriangulo
+ }
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
