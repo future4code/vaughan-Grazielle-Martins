@@ -7,15 +7,18 @@
 function retornaTamanhoArray(array) {
    return array.length
 }
-console.log(retornaTamanhoArray([3, 2, 1, 4, 7]))
+console.log(retornaTamanhoArray())
 // EXERCÍCIO 02
 function retornaArrayInvertido(array) {
   return array.reverse()
 }
-console.log(retornaArrayInvertido([8, 23, 16, 10]))
+console.log(retornaArrayInvertido())
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
-  
+    array.sort(function(a,b){
+        return a - b
+    })
+    return array
 }
 
 // EXERCÍCIO 04
