@@ -29,7 +29,11 @@ function retornaNumerosPares(array) {
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
-   
+    const arrayPar = array.filter(item => (item %2) === 0);
+    const arrayElevado = arrayPar.map((item) => {
+       return Math.pow(item , 2)
+    })
+    return arrayElevado
 } 
 
 // EXERCÍCIO 06
