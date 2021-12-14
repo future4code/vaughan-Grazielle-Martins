@@ -90,8 +90,11 @@ function classificaTriangulo(ladoA, ladoB, ladoC) {
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
-  
-}
+    array.sort(function(a,b){
+        return a - b
+    })
+    return [array[array.length -2], array[1]]
+} 
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
