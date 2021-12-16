@@ -64,12 +64,18 @@ div img {
     height: 500px;
     text-align:center;
     padding: 100px;
+    display: block
 }
 
 .icone {
     height: 35px;
 }
-
+.icone:hover{
+    opacity: 0.2;
+}
+.icone:active{
+    opacity: 1;
+}
 
 /** 
   *
