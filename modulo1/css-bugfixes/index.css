@@ -85,6 +85,9 @@ div img {
 #container-de-descricao>ol {
     padding: 15px 0px;
     font-family: "Roboto";
+    width: 20%;
+    text-align:justify;
+    margin: 0 auto 0 760px;
 }
 #container-para-comprar {
     background-color: #e7eb90;
