@@ -30,7 +30,8 @@ img {
 }
 
 div>p:first-child {
-    display: inline;
+    display: inline-block;
+    width: 190px;
 }
 
 div img {
@@ -54,7 +55,7 @@ div img {
 
 .container {
     height: 500px;
-    text-align: center;
+    text-align:center;
     padding: 100px;
 }
 
@@ -77,7 +78,6 @@ div img {
 #container-de-descricao>ol {
     padding: 15px 0px;
 }
-
 #container-para-comprar {
     background-color: #e7eb90;
 }
