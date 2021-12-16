@@ -110,7 +110,7 @@ div:last-child {
 
 table {
     width: 60%;
-    margin: 0 auto;
+    margin: 0 auto 0 500px;
     
 }
 #td-font {
