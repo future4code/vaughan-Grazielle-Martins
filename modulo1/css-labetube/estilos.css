@@ -16,6 +16,7 @@ header {
     background-color: brown;
     align-items: center;
     padding: 0 30px;
+    width: 96%;
 }
 footer {
     background-color: brown;
@@ -43,4 +44,39 @@ main {
 .imagem_tabela {
     width: 400px;
     height: 300px;
+}
+
+@media screen and (max-device-width: 375px){
+    
+    .imagem_tabela {
+        width: 18em;
+        height: 10%;
+        display: grid;
+    }
+    a{
+        width: 60%;
+    }
+    .videos{
+        display: grid;
+        align-items: center
+    }
+    header {
+        padding: 0 2% 0 2%;
+    }
+    form {
+        padding: 15px 5px;
+    }
+    footer{
+        position: relative;
+        width: 92%;
+    }
+}
+@media screen and (min-device-width: 380px){
+    header{
+        width: 98%;
+    }
+    .videos{
+        width: 22%;
+        float: left;
+    }
 }
