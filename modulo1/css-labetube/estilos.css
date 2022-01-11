@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+form {
+    width: 50%;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: brown;
+    align-items: center;
+    padding: 0 30px;
+    width: 96%;
+}
+footer {
+    background-color: brown;
+    display: flex;
+    width: 96%;
+    height: 20px;
+    position: fixed;
+    bottom: 0;
+    padding: 2% 2%;
+    align-items: center;
+    justify-content: flex-end
+}
+.imagem-linkedin {
+    width: 25px;
+}
+main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.videos {
+    display: grid;
+    justify-items: center
+}
+.imagem_tabela {
+    width: 400px;
+    height: 300px;
+}
+
+@media screen and (max-device-width: 375px){
+    
+    .imagem_tabela {
+        width: 18em;
+        height: 10%;
+        display: grid;
+    }
+    a{
+        width: 60%;
+    }
+    .videos{
+        display: grid;
+        align-items: center
+    }
+    header {
+        padding: 0 2% 0 2%;
+    }
+    form {
+        padding: 15px 5px;
+    }
+    footer{
+        position: relative;
+        width: 92%;
+    }
+}
+@media screen and (min-device-width: 380px){
+    header{
+        width: 98%;
+    }
+    .videos{
+        width: 22%;
+        float: left;
+    }
+}
