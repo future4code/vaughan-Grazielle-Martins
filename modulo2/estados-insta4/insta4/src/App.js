@@ -9,8 +9,20 @@ const MainContainer = styled.div`
   align-items: center;
 `
 
+const formEditado = styled.div`
+   display: grid;
+  
+`
+const buttonNovo = styled.button`
+   ;
+`
 class App extends React.Component {
   state={
+
+    inputNome: "",
+    inputFotoUsuario: "",
+    inputPost: "",
+
     posts: [
       {
         nomeUsuario: "Grazi",
@@ -28,6 +40,28 @@ class App extends React.Component {
         fotoPost: 'https://picsum.photos/200/152'
       }
     ]
+  };
+
+  guardaNome = (event) => {
+      this.setState({ inputNome: event.target.value});
+    }
+  guardaFotoUsuario = (event) => {
+      this.setState({ inputFotoUsuario: event.target.value});
+    }
+  guardaPost = (event) => {
+      this.setState({ inputPost: event.target.value});
+    }
+
+  adicionarPost = () => {
+    const novoPost = {
+          nome: this.state.inputNome,
+          fotoUsuario:  this.state.inputFotoUsuario, 
+          fotoPost:  this.state.inputPost
+    }
+
+    const post = [...this.state.posts, novoPost];
+      this.setState({posts: post});
+      this.setState({inputNome:"", inputFotoUsuario:"", inputPost:""});
   }
   render() {
     const listaDePost = this.state.posts.map((posts) => {
@@ -42,7 +76,33 @@ class App extends React.Component {
     });
     return (
         <MainContainer>
+          
+        
+         <h1>Postar</h1>
+        <formEditado>
+         <div>
+          <input
+          onChange={this.guardaNome}
+          value={this.state.inputNome}
+          placeholder="Nome"
+          />
+         <input
+          onChange={this.guardaFotoUsuario}
+          value={this.state.inputFotoUsuario}
+          placeholder="Foto do Usuário"
+         />
+         <input 
+          onChange={this.guardaPost}
+          value={this.state.inputPost}
+          placeholder="Foto do Post"
+         />
+         </div>
+        </formEditado>
+        <buttonNovo>
+          <button onClick={this.adicionarPost}> Adicionar </button>
+        </buttonNovo>
           {listaDePost}
+        
         </MainContainer>
     );
   }
