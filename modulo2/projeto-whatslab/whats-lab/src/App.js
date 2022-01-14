@@ -7,13 +7,15 @@ const Container = styled.div`
     border: 1px solid gray;
     width: 100%;
     height: 700px;
-    
+    background: #CFCFCF;
+    border-radius: 0.7em;
     
 `
 const Corpo = styled.body`
-display:grid;
+  display:grid;
     justify-content: center;
     margin: 40px 20px;
+    
     
 `
 const Mensagem = styled.main`
@@ -22,24 +24,27 @@ const Mensagem = styled.main`
     width: 500px;
     flex-direction: column;
 
-    
 `
 const CaixaInputNome = styled.input`
     width: 50%;
-    
+    border-radius: 0.5em;
 `
 const CaixaInputMensagem = styled.input`
     width: 50%;
     height: 70px;
+    border-radius: 0.5em;
+    
     
 `
 const Botao = styled.button`
-    width: 30%;
-   
+    width: 20%;
+    background-color: #C1CDCD;
     &:hover {
-    background-color: #006400;
+    background-color: #838B8B;
+    
   }
 `
+
 
 class App extends React.Component {
   state={
@@ -71,6 +76,7 @@ class App extends React.Component {
         <Post
           nome={mensagem.nome}
           mensagem={mensagem.mensagem}
+          
         />
       )
     });
@@ -85,7 +91,7 @@ class App extends React.Component {
                     {listaDeMensagem}
                 </Mensagem>
             </Container>
-
+            
             <CaixaInputNome 
             onChange={this.guardaNome}
             value={this.state.inputNome}
@@ -96,6 +102,7 @@ class App extends React.Component {
             value={this.state.inputMensagem}
             placeholder='Mensagem' 
             />
+            
             <Botao onClick={this.adicionarMensagem} type='submit'>Enviar</Botao>
         </Corpo>
       ); 
