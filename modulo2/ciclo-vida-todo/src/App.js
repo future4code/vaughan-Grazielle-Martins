@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { JsxEmit } from 'typescript'
 import './styles.css'
 
 const TarefaList = styled.ul`
@@ -23,26 +24,32 @@ class App extends React.Component {
       tarefas: [
         {
           id: Date.now(),
-          texto: 'Texto da primeira tarefa',
+          texto: 'Estudar',
           completa: false 
-        },
-        {
-          id: Date.now(),
-          texto: 'Texto da segunda tarefa',
-          completa: true 
         }
       ],
       inputValue: '',
       filtro: ''
     }
 
-  componentDidUpdate() {
+  pegarTarefa = () => {
+    
+  }
+  executarSearch = () => {
 
-  };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    localStorage.setItem("tarefas", JSON.stringify(this.state.tarefas))
+    const tarefaString = localStorage.getItem("tarefas")  
+    const tarefaObjeto = JSON.parse(tarefaString)
+    console.log(tarefaObjeto)
+  }
+  
 
   componentDidMount() {
-
-  };
+    this.pegarTarefa()
+  }
 
   onChangeInput = (event) => {
     this.setState({inputValue: event.target.value});
