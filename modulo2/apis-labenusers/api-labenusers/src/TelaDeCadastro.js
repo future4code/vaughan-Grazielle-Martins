@@ -2,9 +2,12 @@
 import axios from 'axios'
 import React from 'react';
 import TelaDeUsuario from './TelaDeUsuarios';
+import styled from 'styled-components';
 
-
-
+const Input = styled.input`
+    
+    background-color: #b0a9ca;
+`
 
 class TelaDeCadastro extends React.Component {
 
@@ -47,9 +50,9 @@ class TelaDeCadastro extends React.Component {
       <div className="App">
         <h2>Tela de Cadastro</h2>
         <hr/>
-        <input placeholder='Escreva seu nome' type={"text"} value={this.state.nome} onChange={this.handleInputNome}></input>
+        <Input placeholder='Escreva seu nome' type={"text"} value={this.state.nome} onChange={this.handleInputNome}></Input>
         <br/>
-        <input placeholder='Escreva seu email' type={"email"} value={this.state.email} onChange={this.handleInputEmail}></input>
+        <Input placeholder='Escreva seu email' type={"email"} value={this.state.email} onChange={this.handleInputEmail}></Input>
         <br/>
         <button type={"submit"} onClick={this.criarUsuario}>Criar Usuário</button>
         <br/>

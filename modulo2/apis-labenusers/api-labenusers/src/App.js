@@ -24,7 +24,7 @@ class App extends React.Component {
   return (
     <div className="App">
      {this.state.tela === "cadastro" ? <TelaDeCadastro/> : <TelaDeUsuario/>}
-     
+     <br/>
      <button onClick={this.mudarTela}>Trocar de tela</button>
       
     
