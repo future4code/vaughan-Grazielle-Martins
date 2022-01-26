@@ -6,7 +6,8 @@ import TelaDeCadastro from './TelaDeCadastro';
 class TelaDeUsuario extends React.Component {
 
     state={
-        usuarios:[]
+        usuarios:[],
+        
     }
 
     componentDidMount(){
@@ -54,7 +55,7 @@ class TelaDeUsuario extends React.Component {
         {this.state.nome}
         {this.state.usuarios.length>0? (usuarios): <p>Carregando ...</p>}
         <br/>
-        <button type={"submit"}>Voltar Para Tela Inicial</button>
+        
       </div>
     );}
   }

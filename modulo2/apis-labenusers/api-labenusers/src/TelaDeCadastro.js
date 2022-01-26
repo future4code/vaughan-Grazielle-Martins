@@ -10,8 +10,10 @@ class TelaDeCadastro extends React.Component {
 
     state = {
         nome: "",
-        email:""
-    }
+        email:"" 
+        }
+    
+
     handleInputNome=(event)=>{
         this.setState({nome:event.target.value})
         
@@ -41,7 +43,7 @@ class TelaDeCadastro extends React.Component {
 
 
     render (){
-    return (
+     return (
       <div className="App">
         <h2>Tela de Cadastro</h2>
         <hr/>
@@ -51,7 +53,8 @@ class TelaDeCadastro extends React.Component {
         <br/>
         <button type={"submit"} onClick={this.criarUsuario}>Criar Usuário</button>
         <br/>
-        <button>Tela de Usuários</button>
+        
+       
       </div>
     )};
   }
