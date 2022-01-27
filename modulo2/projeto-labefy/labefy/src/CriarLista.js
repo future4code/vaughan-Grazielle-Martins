@@ -1,4 +1,4 @@
-//criar a lista so com o nome
+
 import axios from "axios";
 import React from "react";
 import VerLista from "./VerLista";
@@ -25,7 +25,7 @@ export default class CriarLista extends React.Component {
            alert("PlayList criada com sucesso!")
            this.setState({inputValue:""})
        }catch(error) {
-           alert("Ocorreu um erro ao criar a lista, tente novamente!")
+           alert("Esse nome de lista já existe!")
        }
     }
   render(){

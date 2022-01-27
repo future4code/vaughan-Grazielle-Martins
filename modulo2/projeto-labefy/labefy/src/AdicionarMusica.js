@@ -7,6 +7,8 @@ export default class AdicionarMusica extends React.Component {
     return (
     <div className="App">
        <h1>Adicionar lista</h1>
+
+       <p>Em construção...</p>
     </div>
   );
     }

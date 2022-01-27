@@ -7,6 +7,7 @@ export default class DetalheDaLista extends React.Component {
     return (
     <div className="App">
      <h1>Detalhe da  lista</h1>
+     <p>Em construção...</p>
     </div>
   );
     }
