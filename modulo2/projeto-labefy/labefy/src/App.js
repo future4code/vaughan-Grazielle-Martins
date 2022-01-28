@@ -38,7 +38,6 @@ export default class App extends React.Component {
     <div className="App">
         <button onClick={() => this.mudarDeTela("criarlista")}>Criar Lista</button>
         <button onClick={() => this.mudarDeTela("verlista")}>Ver Lista</button>
-        <button onClick={() => this.mudarDeTela("detalhelista")}>Detalhe Da Lista</button>
         <button onClick={() => this.mudarDeTela("adicionarmusica")}>Adicionar Música</button>
         {this.selectPage()}
     </div>
