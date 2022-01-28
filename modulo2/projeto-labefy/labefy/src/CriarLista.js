@@ -3,6 +3,7 @@ import axios from "axios";
 import React from "react";
 import VerLista from "./VerLista";
 
+
 export default class CriarLista extends React.Component {
 
     state = {
@@ -12,10 +13,13 @@ export default class CriarLista extends React.Component {
 
     handleInput=(event)=>{
         this.setState({inputValue: event.target.value})
+       
     }
+    
     criarNovaLista = async () => {
         const url = "https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists"
         const body = {name:this.state.inputValue}
+        
        try{
            const resposta = await axios.post(url, body, {
                 headers: {

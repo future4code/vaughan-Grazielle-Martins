@@ -2,8 +2,6 @@ import React from "react";
 import axios from "axios";
 import CriarLista from "./CriarLista";
 import VerLista from "./VerLista";
-import DetalheDaLista from "./DetalheDaLista";
-import AdicionarMusica from "./AdicionarMusica";
 //import styled from "styled-components";
 
 export default class App extends React.Component {
@@ -19,10 +17,7 @@ export default class App extends React.Component {
       return <CriarLista/>
     case "verlista":
       return <VerLista/>
-    case "detalhelista":
-      return <DetalheDaLista/>
-    case "adicionarmusica":
-      return <AdicionarMusica/>
+ 
     default:
       return <CriarLista/>
       
@@ -37,8 +32,7 @@ export default class App extends React.Component {
     return (
     <div className="App">
         <button onClick={() => this.mudarDeTela("criarlista")}>Criar Lista</button>
-        <button onClick={() => this.mudarDeTela("verlista")}>Ver Lista</button>
-        <button onClick={() => this.mudarDeTela("adicionarmusica")}>Adicionar Música</button>
+        <button onClick={ () => this.mudarDeTela("verlista")}>Ver Lista</button>
         {this.selectPage()}
     </div>
   );
