@@ -10,7 +10,7 @@ const Div = styled.div`
 const Div2 = styled.div`
  display: flex;
  border-style: groove;
- width:80%
+ width:80%;
 `
 const Button = styled.button`
   width: 40%;
@@ -43,6 +43,16 @@ export default function Match(props) {
         console.log(erro.response);
       })
   }
+  const limparLista = () =>{
+    axios
+    .put(`https://us-central1-missao-newton.cloudfunctions.net/astroMatch/grazielle/clear`)
+    .then((res) => {
+      pegarMatch()
+      console.log("limpou")
+    }).catch((erro) => {
+      console.log(erro.response);
+    })
+  }
 
   useEffect(() => {
     pegarMatch();
@@ -62,7 +72,7 @@ export default function Match(props) {
         })}
       </div>
       <Div>
-        <button>Limpar</button>
+        <button onClick={limparLista}>Limpar</button>
       </Div>
     </>
   )
