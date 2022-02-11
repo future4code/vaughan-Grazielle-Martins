@@ -19,6 +19,8 @@ const Container = styled.div`
    flex-direction: column;
    align-content: space-between;
     justify-items: center;
+    justify-content: space-around;
+    background: #AE2A2A;
 `
 
 export default function App() {

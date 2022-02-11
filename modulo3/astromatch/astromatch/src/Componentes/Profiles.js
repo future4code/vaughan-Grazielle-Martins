@@ -3,10 +3,21 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import App from "../App";
 
+const DivHeaders = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+`
 const Div = styled.div`
  display: flex;
  justify-content: space-around;
  
+`
+const Div1 = styled.div`
+  width: 100%;
+  display:flex;
+  justify-content: center;
+  background: #D14B4B;
 `
 const Button = styled.button`
   width: 20%;
@@ -14,7 +25,7 @@ const Button = styled.button`
   margin-top: 20px;
 `
 const ImgButton = styled.img`
-  width:60%;
+  width: 25%;
 `
 const H2 = styled.h2`
       background-image: linear-gradient(to right, red , yellow); 
@@ -29,7 +40,8 @@ const ImgPessoa = styled.div`
   justify-content: flex-end;
   align-items: flex-start;
   font-family: Helvetica;
-  color: white;
+  color: black;
+  text-shadow: 0 0 2px white;
 `
 const Img = styled.img`
   width: 30%;
@@ -75,17 +87,17 @@ export default function Profiles(props) {
 
   return (
     <div>
-      <Div>
+      <DivHeaders>
         <H2>Astromatch</H2>
         <Button onClick={() => props.mudarParaMatch()}><ImgButton src="https://png.pngtree.com/png-vector/20190226/ourlarge/pngtree-fire-logo-icon-design-template-vector-png-image_705401.jpg" /></Button>
-      </Div>
-      <Div>
+      </DivHeaders>
+      <Div1>
         <ImgPessoa style={{ backgroundImage: `url(${foto})` }}>
 
           <h3>{name}, {age}</h3>
-          <p>{bio}</p>
+          <p><strong>{bio}</strong></p>
         </ImgPessoa>
-      </Div>
+      </Div1>
       <Div>
         <Button onClick={() => escolherPessoa(false)}> <Img src="https://th.bing.com/th/id/R.515a8436981dce0cb5e3347fc152522f?rik=R%2bfuukLKC0pWBw&riu=http%3a%2f%2fimages.emojiterra.com%2fmozilla%2f512px%2f274c.png&ehk=OC2l%2fP9%2bUdpo%2bp1F8TbAE%2bIf9f7540RjBNdbsLY2obE%3d&risl=&pid=ImgRaw&r=0"></Img></Button>
         <Button onClick={() => escolherPessoa(true)}> <Img src="https://http2.mlstatic.com/D_NQ_NP_756824-MLB29124886020_012019-F.jpg" /></Button>

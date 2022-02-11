@@ -7,10 +7,15 @@ const Div = styled.div`
  justify-content: space-around;
  
 `
+const Div1 = styled.div`
+  background: #D14B4B;
+  width: 60%;
+`
 const Div2 = styled.div`
  display: flex;
  border-style: groove;
- width:80%;
+ width: 99%;
+ 
 `
 const Button = styled.button`
   width: 40%;
@@ -63,14 +68,14 @@ export default function Match(props) {
         <H2>Matches</H2>
         <Button onClick={props.mudarParaProfiles}> Voltar </Button>
       </Div>
-      <div>
+      <Div1>
         {listadematch.map((pessoa) =>{
           return <Div2>
             <Img src={pessoa.photo}></Img>
                 <p>{pessoa.name}</p>
               </Div2>
         })}
-      </div>
+      </Div1>
       <Div>
         <button onClick={limparLista}>Limpar</button>
       </Div>
