@@ -1,18 +1,10 @@
-import './App.css';
-import HomePage from './Pages/HomePage';
-import styled from 'styled-components';
+import react from 'react';
+import { Router } from './route/Router';
 
-const Container = styled.div`
-   margin-top: 40%;
- 
-`
 
 function App() {
   return (
-    
-    <Container>
-    <HomePage/>
-    </Container>
+      <Router/>
   
   );
 }
