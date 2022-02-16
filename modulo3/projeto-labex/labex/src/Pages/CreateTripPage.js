@@ -1,6 +1,6 @@
-import react from "react";
+import react, { useEffect } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
     background: gray;
    display: flex;
@@ -16,7 +16,21 @@ const Button = styled.button`
     border-radius: 12px;
     width: 150px;
 `
+
+const useProtectedPage = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+
+        const token = localStorage.getItem("token");
+
+        if(token === null){
+            navigate("/login");
+        }
+    }, []);
+};
+
 function CreateTripPage() {
+    useProtectedPage();
     return (
 
         <Container className="App">
