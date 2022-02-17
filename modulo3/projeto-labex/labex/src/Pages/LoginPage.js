@@ -63,7 +63,7 @@ function LoginPage() {
         setPassword(event.target.value);
     }
 
-    const submitLogin =() => {
+    const submitLogin = () => {
         const body = {
             email: email,
             password: password
@@ -74,9 +74,9 @@ function LoginPage() {
         ).then((resposta) => {
             localStorage.setItem("token", resposta.data.token)
             navigate("/admin/trips/list");
-         
+
         }).catch((erro) => {
-           alert("Email ou senha inválida")
+            alert("Email ou senha inválida")
         })
     }
 
@@ -89,11 +89,27 @@ function LoginPage() {
                 <Button onClick={goHome}>Voltar</Button>
             </Container>
             <DivCard>
-            <Card>
-                <input placeholder="Email" value={email} onChange={onChangeEmail}></input>
-                <input placeholder="Senha" value={password} onChange={onChangePassword}></input>
-                <button onClick={submitLogin}>Enviar</button>
-            </Card>
+                <Card>
+                    <form>
+                    <input
+                        placeholder="Email"
+                        value={email}
+                        onChange={onChangeEmail}
+                        required
+                        type={"email"}
+                    >
+                    </input>
+                    <input
+                        placeholder="Senha"
+                        value={password}
+                        onChange={onChangePassword}
+                        required
+                        pattern={"^.{5,}"}
+                        title={"A senha deve ter no mínimo 5 caracteres"}
+                    ></input>
+                    <button onClick={submitLogin}>Enviar</button>
+                    </form>
+                </Card>
             </DivCard>
         </div>
     );

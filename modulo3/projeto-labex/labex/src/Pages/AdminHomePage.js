@@ -63,6 +63,10 @@ function AdminHomePage() {
     const goCreate = () => {
         navigate("/admin/trips/create")
     }
+
+    const goDetails = (id) => {
+        navigate(`/admin/trips/${id}`);
+    }
     useEffect(() => {
         const token = localStorage.getItem("token");
         axios
@@ -76,7 +80,7 @@ function AdminHomePage() {
             )
             .then((resposta) => {
                 setViagens(resposta.data.trips)
-                console.log(resposta.data);
+                
             })
             .catch((error) => {
                 console.log("Deu erro: ", error.response);
@@ -84,7 +88,8 @@ function AdminHomePage() {
     }, []);
     const listarViagens = viagens.map((viagem) => {
         return (<Card key={viagem.id}>
-            <a href={<TripDetailsPage/>}><p><b>Nome:</b> {viagem.name}</p></a>
+            <p><b>Nome:</b> {viagem.name}</p>
+            <button onClick={() => goDetails(viagem.id)}>Detalhes</button>
             <button>X</button>
         </Card>)
     });

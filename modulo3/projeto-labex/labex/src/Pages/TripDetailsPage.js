@@ -36,38 +36,35 @@ const useProtectedPage = () => {
 
 function TripDetailsPage() {
     useProtectedPage();
-    const [viagem, setViagem] = useState([]);
+    const [viagem, setViagem] = useState({});
     const navigate = useNavigate();
     const goListAdmin = () => {
         navigate("/admin/trips/list")
     }
     useEffect((id) => {
+        console.log(id)
+        
         const token = localStorage.getItem("token");
         axios
             .get(
                 `https://us-central1-labenu-apis.cloudfunctions.net/labeX/grazielle/trip/${id}`,
                 {
                     headers: {
-                        auth: id
+                        auth: token
                     }
                 }
             )
             .then((resposta) => {
-                setViagem(resposta.data.trips)
-                console.log(resposta.data);
+                console.log(resposta.data.trip)
+               setViagem(resposta.data.trip) 
+               
+                
             })
             .catch((error) => {
-                console.log("Deu erro: ", error.response);
+                console.log("Deu erro: ", error);
             });
     }, []);
-    const listarViagens = viagem.map((viagem) => {
-        return (<div key={viagem.id}>
-            <p><b>Nome:</b> {viagem.name}</p>
-            <p><b>Descrição:</b> {viagem.description}</p>
-            <p><b>Duração da viagem:</b> {viagem.durationInDays}</p>
-            <p><b>Data:</b> {viagem.date}</p>
-        </div>)
-    })
+ 
 
 
     return (
@@ -82,7 +79,13 @@ function TripDetailsPage() {
                 </div>
 
             </Container>
-            {listarViagens}
+            
+       <div key={viagem.name} >
+            <p><b>Nome:</b> {viagem.name}</p>
+            <p><b>Descrição:</b> {viagem.description}</p>
+            <p><b>Duração da viagem:</b> {viagem.durationInDays}</p>
+            <p><b>Data:</b> {viagem.date}</p>
+        </div>
             <h2>Candidatos Pendentes:</h2>
             <h2>Candidatos Aprovados:</h2>
         </div>

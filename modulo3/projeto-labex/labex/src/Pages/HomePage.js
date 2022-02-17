@@ -8,7 +8,7 @@ const Container = styled.div`
    justify-content: space-around;
    height: 200px;
    font-size: 55px;
-   margin-top: 40%;
+   margin-top: 25%;
    background-image: linear-gradient(180deg, #2d2b2b, #8d8889);
 `
 
