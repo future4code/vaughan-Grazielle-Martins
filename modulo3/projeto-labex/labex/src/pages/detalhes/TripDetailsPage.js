@@ -1,25 +1,9 @@
 import react, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-
-const Container = styled.div`
-    background: gray;
-   display: flex;
-   align-items: center;
-   justify-content: space-around;
-   height: 200px;
-   font-size: 55px;
-   background-image: linear-gradient(180deg, #2d2b2b, #8d8889);
-
-`
-
-const Button = styled.button`
-    background: #989a98;
-    border-radius: 12px;
-    width: 150px;
-`
-
+import {Container} from "../detalhes/TripDetailsstyled"
+import {Button} from "../detalhes/TripDetailsstyled"
+import { useParams } from "react-router-dom";
 
 const useProtectedPage = () => {
     const navigate = useNavigate();
@@ -36,18 +20,20 @@ const useProtectedPage = () => {
 
 function TripDetailsPage() {
     useProtectedPage();
+
     const [viagem, setViagem] = useState({});
     const navigate = useNavigate();
+    const params = useParams();
     const goListAdmin = () => {
         navigate("/admin/trips/list")
     }
-    useEffect((id) => {
-        console.log(id)
+    useEffect(() => {
+    
         
         const token = localStorage.getItem("token");
         axios
             .get(
-                `https://us-central1-labenu-apis.cloudfunctions.net/labeX/grazielle/trip/${id}`,
+                `https://us-central1-labenu-apis.cloudfunctions.net/labeX/grazielle/trip/${params.id}`,
                 {
                     headers: {
                         auth: token
@@ -55,7 +41,7 @@ function TripDetailsPage() {
                 }
             )
             .then((resposta) => {
-                console.log(resposta.data.trip)
+            
                setViagem(resposta.data.trip) 
                
                 

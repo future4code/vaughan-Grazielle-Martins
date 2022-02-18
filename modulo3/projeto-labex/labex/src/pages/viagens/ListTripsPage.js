@@ -1,36 +1,12 @@
 import react from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {Container} from "../viagens/ListTripsstyled"
+import {Button} from "../viagens/ListTripsstyled"
+import {Card} from "../viagens/ListTripsstyled"
+import {DivCard} from "../viagens/ListTripsstyled"
 
-const Container = styled.div`
-    background: gray;
-   display: flex;
-   align-items: center;
-   justify-content: space-around;
-   height: 200px;
-   font-size: 55px;
-   background-image: linear-gradient(180deg, #2d2b2b, #8d8889);
-`
-
-const Button = styled.button`
-    background: #989a98;
-    border-radius: 12px;
-    width: 150px;
-`
-const Card = styled.div`
-    background: gray;
-    width: 40%;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    border-radius: 10px;
-`
-const DivCard = styled.div`
-    display: grid;
-    justify-items: center;
-    
-`
 function ListTripsPage() {
     const [viagens, setViagens] = useState([])
     const navigate = useNavigate();

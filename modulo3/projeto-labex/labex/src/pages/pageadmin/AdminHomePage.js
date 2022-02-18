@@ -1,41 +1,14 @@
 import react, { useEffect } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
-import TripDetailsPage from "./TripDetailsPage";
+import TripDetailsPage from "../detalhes/TripDetailsPage";
+import { Container } from "../pageadmin/AdminHomestyled"
+import { Button } from "../pageadmin/AdminHomestyled"
+import { Card } from "../pageadmin/AdminHomestyled"
+import { DivCard } from "../pageadmin/AdminHomestyled"
+import { useParams } from "react-router-dom";
 
-
-const Container = styled.div`
-    background: gray;
-   display: flex;
-   align-items: center;
-   justify-content: space-around;
-   height: 200px;
-   font-size: 40px;
-   background-image: linear-gradient(180deg, #2d2b2b, #8d8889);
-
-`
-
-const Button = styled.button`
-    background: #989a98;
-    border-radius: 12px;
-    width: 150px;
-`
-const Card = styled.div`
-    background: gray;
-    width: 40%;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-`
-const DivCard = styled.div`
-    display: grid;
-    justify-items: center;
-    
-`
 const useProtectedPage = () => {
     const navigate = useNavigate();
     useEffect(() => {
@@ -51,14 +24,16 @@ const useProtectedPage = () => {
 
 function AdminHomePage() {
     useProtectedPage();
+    const token = localStorage.getItem("token");
     const [viagens, setViagens] = useState([])
-
+    const params = useParams();
     const navigate = useNavigate();
     const goHome = () => {
         navigate("/");
     }
     const goLogout = () => {
-        navigate("/login");
+        localStorage.removeItem("token")
+        navigate("/");
     }
     const goCreate = () => {
         navigate("/admin/trips/create")
@@ -68,7 +43,7 @@ function AdminHomePage() {
         navigate(`/admin/trips/${id}`);
     }
     useEffect(() => {
-        const token = localStorage.getItem("token");
+
         axios
             .get(
                 "https://us-central1-labenu-apis.cloudfunctions.net/labeX/grazielle/trips",
@@ -80,17 +55,39 @@ function AdminHomePage() {
             )
             .then((resposta) => {
                 setViagens(resposta.data.trips)
-                
+
+
             })
             .catch((error) => {
                 console.log("Deu erro: ", error.response);
             });
     }, []);
+    const removeTrip = () => {
+
+        axios.delete(
+            `https://us-central1-labenu-apis.cloudfunctions.net/labeX/grazielle/trips/${params.id}`,
+            {
+                headers: {
+                    auth: token
+                }
+            }
+        ).then((resposta) => {
+          
+            console.log("removeu")
+            navigate("/admin/trips/list");
+
+
+        }).catch((erro) => {
+            alert("Ops! Algo deu errado")
+            console.log(erro.response)
+        })
+    }
+    
     const listarViagens = viagens.map((viagem) => {
         return (<Card key={viagem.id}>
             <p><b>Nome:</b> {viagem.name}</p>
             <button onClick={() => goDetails(viagem.id)}>Detalhes</button>
-            <button>X</button>
+            <button onClick={removeTrip}>X</button>
         </Card>)
     });
 
@@ -112,7 +109,7 @@ function AdminHomePage() {
             <DivCard>
                 {listarViagens}
             </DivCard>
-        </div>
+            </div>
     );
 }
 
