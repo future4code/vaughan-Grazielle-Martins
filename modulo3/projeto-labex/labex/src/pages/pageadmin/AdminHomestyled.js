@@ -33,3 +33,7 @@ export const DivCard = styled.div`
     justify-items: center;
     
 `
+export const Button2 = styled.div`
+    display: flex;
+    align-items: center;
+`

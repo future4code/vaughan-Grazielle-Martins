@@ -7,6 +7,7 @@ import { Container } from "../pageadmin/AdminHomestyled"
 import { Button } from "../pageadmin/AdminHomestyled"
 import { Card } from "../pageadmin/AdminHomestyled"
 import { DivCard } from "../pageadmin/AdminHomestyled"
+import { Button2 } from "../pageadmin/AdminHomestyled"
 import { useParams } from "react-router-dom";
 
 const useProtectedPage = () => {
@@ -42,8 +43,8 @@ function AdminHomePage() {
     const goDetails = (id) => {
         navigate(`/admin/trips/${id}`);
     }
-    useEffect(() => {
-
+  
+    const getTrips = ()=> {
         axios
             .get(
                 "https://us-central1-labenu-apis.cloudfunctions.net/labeX/grazielle/trips",
@@ -60,21 +61,24 @@ function AdminHomePage() {
             })
             .catch((error) => {
                 console.log("Deu erro: ", error.response);
-            });
+            })};
+    useEffect(() => {
+        getTrips()
     }, []);
-    const removeTrip = () => {
+    const removeTrip = (id) => {
 
         axios.delete(
-            `https://us-central1-labenu-apis.cloudfunctions.net/labeX/grazielle/trips/${params.id}`,
+            `https://us-central1-labenu-apis.cloudfunctions.net/labeX/grazielle/trips/${id}`,
             {
                 headers: {
                     auth: token
                 }
             }
         ).then((resposta) => {
-          
+        //   viagens.splice( id, 1)
+          getTrips()
             console.log("removeu")
-            navigate("/admin/trips/list");
+            // navigate("/admin/trips/list");
 
 
         }).catch((erro) => {
@@ -86,8 +90,10 @@ function AdminHomePage() {
     const listarViagens = viagens.map((viagem) => {
         return (<Card key={viagem.id}>
             <p><b>Nome:</b> {viagem.name}</p>
+            <Button2>
             <button onClick={() => goDetails(viagem.id)}>Detalhes</button>
-            <button onClick={removeTrip}>X</button>
+            <button type= "button" onClick={() => removeTrip(viagem.id)}>X</button>
+            </Button2>
         </Card>)
     });
 
