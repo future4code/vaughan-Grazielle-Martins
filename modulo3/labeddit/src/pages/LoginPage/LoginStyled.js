@@ -6,3 +6,9 @@ export const Container = styled.div`
     justify-items: center;
  
 `
+
+export const Form = styled.form`
+display:grid;
+justify-items: center;
+
+` 
