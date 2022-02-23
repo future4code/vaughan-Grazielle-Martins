@@ -8,11 +8,11 @@ import Headers from "../components/Header";
 const Router = () => {
     return (
         <BrowserRouter>
-        <Headers/>
+       
         <Routes>
-            <Route exact path="/" element={<LoginPage/>}/>
+            <Route exact path="/login" element={<LoginPage/>}/>
             <Route exact path="/feed" element={ <FeedPage/>}/>
-            <Route exact path="/post" element={  <PostPage/>}/>
+            <Route exact path="/feed/post/:id" element={  <PostPage/>}/>
             <Route exact path="/register" element={ <RegisterPage/>}/>
         </Routes>
         </BrowserRouter>

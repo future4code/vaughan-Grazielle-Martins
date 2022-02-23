@@ -29,7 +29,7 @@ const LoginPage = () => {
         .post(`${BASE_URL}/users/login`, form)
         .then((resposta) => {
            localStorage.setItem("token", resposta.data.token)
-           clear()
+         
         })
         .catch((erro) =>
             {
@@ -37,7 +37,7 @@ const LoginPage = () => {
             }
         )
     }
-
+  
     return (
         <Container>
             <img src={logo}></img>

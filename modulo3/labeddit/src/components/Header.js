@@ -6,14 +6,15 @@ const Header = styled.header`
     background: #63e6c8;
     height: 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 `
 const Headers = () => {
     return(
     <AppBar>
         <Toolbar>
-            <h2>LabEddit</h2>
+        <h1>LabEddit</h1>
         </Toolbar>
+        
     </AppBar>
   
   );
