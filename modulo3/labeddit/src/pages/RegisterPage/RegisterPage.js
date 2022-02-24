@@ -27,7 +27,7 @@ const RegisterPage = () => {
         axios
             .post(`${BASE_URL}/users/signup`, form)
             .then((resposta) =>
-                console.log(resposta)
+               alert("Cadastro realizado!")
             )
             .catch((erro) =>
                 console.log(erro)

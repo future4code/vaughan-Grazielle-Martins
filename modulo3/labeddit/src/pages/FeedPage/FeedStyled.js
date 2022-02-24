@@ -27,7 +27,7 @@ export const Divcard = styled.div`
 display:flex;
 justify-content: space-between;
 ` 
-export const Button1 = styled.button`
+export const DivButton = styled.div`
 display:flex;
 justify-content: space-between;
 ` 

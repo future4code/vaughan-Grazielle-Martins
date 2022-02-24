@@ -14,6 +14,7 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { useNavigate } from "react-router-dom";
 import { goToLogin, goToPost } from "../../routes/coordinator";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 const useProtectedPage = () => {
     const navigate = useNavigate();
@@ -22,14 +23,14 @@ const useProtectedPage = () => {
         const token = localStorage.getItem("token");
 
         if (token === null) {
-            navigate("/login");
+            navigate("/");
         }
     }, []);
 };
 function PostPage() {
     useProtectedPage();
     const [comentarios, setComentarios] = useState([])
-    const { form, onChange, clear } = useForm({ texto: "", body: "", direction: 1 })
+    const { form, onChange, clear } = useForm({ texto: "", body: "", direction: "" })
     const params = useParams();
     const navigate = useNavigate();
 
@@ -51,6 +52,7 @@ function PostPage() {
             .then((resposta) => {
 
                 setComentarios(resposta.data)
+              
 
             })
             .catch((erro) =>
@@ -81,11 +83,13 @@ function PostPage() {
                 console.log(erro)
             )
     }
-    const createcomment = () => {
+    const createcommentvote = (id) => {
         const token = localStorage.getItem("token");
-
+        const body = {
+            direction: 1
+        }
         axios
-            .post(`${BASE_URL}/comments/${params.id}/votes`, form,
+            .post(`${BASE_URL}/comments/${id}/votes`, body,
                 {
                     headers: {
                         Authorization: token
@@ -93,22 +97,58 @@ function PostPage() {
                 }
             )
             .then((resposta) => {
-
-                console.log("curtiu")
+                listarcomentarios()
+              
             })
             .catch((erro) =>
                 console.log(erro)
             )
     }
-    const changecomment = () => {
+    const changecommentvote = (id) => {
+        const token = localStorage.getItem("token");
+        const body = {
+            direction: -1
+        }
+        axios
+            .put(`${BASE_URL}/comments/${id}/votes`, body,
+                {
+                    headers: {
+                        Authorization: token
+                    }
+                }
+            )
+            .then((resposta) => {
+                listarcomentarios()
+                
+            })
+            .catch((erro) =>
+                console.log(erro)
+            )
 
     }
-    const deletecomment = () => {
-
+    const deletecommentvote = (id) => {
+        const token = localStorage.getItem("token");
+       
+        axios
+            .delete(`${BASE_URL}/comments/${id}/votes`,
+                {
+                    headers: {
+                        Authorization: token
+                    }
+                }
+            )
+            .then((resposta) => {
+                listarcomentarios()
+                
+            })
+            .catch((erro) =>
+                console.log(erro)
+            )
     }
 
     const goLogout = () => {
         localStorage.removeItem("token")
+        alert("Logout feito!!")
         goToLogin(navigate);
     }
 
@@ -117,10 +157,12 @@ function PostPage() {
             <p><b>Usuário:</b> {comentario.username}</p>
             <p><b>Comentário:</b> {comentario.body}</p>
             <p>
-                <ArrowUpwardIcon alt={'IconeMais'} onClick={createcomment} />
+            <b>Curtir:</b>
+                <ArrowUpwardIcon alt={'IconeMais'} onClick={() => createcommentvote(comentario.id)} />
 
                 {comentario.userVote}
-                <ArrowDownwardIcon alt={'Iconemenos'} />
+                <ArrowDownwardIcon alt={'Iconemenos'} onClick={() =>changecommentvote(comentario.id)}/>
+                <HighlightOffIcon alt={'Iconedeletar'} onClick={() =>deletecommentvote(comentario.id)}/>
             </p>
 
         </Card>
@@ -130,9 +172,8 @@ function PostPage() {
         <div>
             <Headers />
             <Container>
-                <Button1>
-                    <Button onClick={goLogout}>Logout</Button>
-                </Button1>
+
+
                 <Form onSubmit={post}>
 
                     <input

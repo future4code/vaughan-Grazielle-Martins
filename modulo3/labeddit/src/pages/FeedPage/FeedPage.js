@@ -10,13 +10,13 @@ import { BASE_URL } from "../../constants/urls"
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Card } from "./FeedStyled";
-import { Button1 } from "./FeedStyled";
 import { Divcard } from "./FeedStyled";
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import { goToLogin, goToPost } from "../../routes/coordinator";
 import { useParams } from "react-router-dom";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 
 const useProtectedPage = () => {
@@ -26,7 +26,7 @@ const useProtectedPage = () => {
         const token = localStorage.getItem("token");
 
         if (token === null) {
-            navigate("/login");
+            navigate("/");
         }
     }, []);
 };
@@ -36,8 +36,7 @@ const FeedPage = () => {
     const token = localStorage.getItem("token");
     const { form, onChange, clear } = useForm({ title: "", body: ""})
     const [posts, setPosts] = useState([]);
-    const [curtido, setCurtido] = useState(false)
-    const [numerodecurtidas, setNumerodecurtidas] = useState(0)
+    const [card, setCard] = useState({});
     const navigate = useNavigate()
     const params = useParams();
 
@@ -57,7 +56,7 @@ const FeedPage = () => {
                 })
             .then((resposta) => {
                 listarPosts()
-                console.log(resposta)
+               
             })
             .catch((erro) =>
                 console.log(erro)
@@ -74,7 +73,7 @@ const FeedPage = () => {
                 })
             .then((resposta) => {
                 setPosts(resposta.data)
-
+ 
 
             })
             .catch((erro) =>
@@ -86,11 +85,15 @@ const FeedPage = () => {
         listarPosts()
     }, []);
     
-    const createvote = () => {
+    const createvote = (id) => {
+        
         const token = localStorage.getItem("token");
-
+        
+        const body = {
+            direction: 1
+        }
         axios
-            .post(`${BASE_URL}/posts/${params.id}/votes`, form,
+            .post(`${BASE_URL}/posts/${id}/votes`, body,
                 {
                     headers: {
                         Authorization: token
@@ -98,42 +101,72 @@ const FeedPage = () => {
                 }
             )
             .then((resposta) => {
-
-                console.log("curti")
+              listarPosts()
             })
             .catch((erro) =>
                 console.log(erro)
             )
     }
-    const changevote = () => {
-
+    const changevote = (id) => {
+        const token = localStorage.getItem("token");
+        
+        const body = {
+            direction: -1
+        }
+        axios
+            .put(`${BASE_URL}/posts/${id}/votes`, body,
+                {
+                    headers: {
+                        Authorization: token
+                    }
+                }
+            )
+            .then((resposta) => {
+                listarPosts()
+            })
+            .catch((erro) =>
+                console.log(erro)
+            )
     }
-    const deletevote = () => {
+    const deletevote = (id) => {
+        const token = localStorage.getItem("token");
 
+        axios
+            .delete(`${BASE_URL}/posts/${id}/votes`,
+                {
+                    headers: {
+                        Authorization: token
+                    }
+                }
+            )
+            .then((resposta) => {
+                listarPosts()
+            })
+            .catch((erro) =>
+                console.log(erro)
+            )
     }
 
     const onClickcard = (id) => {
         goToPost(navigate, id)
     }
 
-    const goLogout = () => {
-        localStorage.removeItem("token")
-        goToLogin(navigate);
-    }
-
+    
     const cardPosts = posts.map((post) => {
 
-        return <Card key={post.id} onClick={() => onClickcard(post.id)}>
+        return <Card key={post.id} >
             <p><b>Usuário:</b> {post.username}</p>
             <p><b>Texto:</b> {post.body}</p>
             <Divcard>
                 <p>
-                    <ArrowUpwardIcon alt={'IconeMais'} onClick={() => createvote}/>
+                    <ArrowUpwardIcon alt={'IconeMais'} onClick={()=>createvote(post.id)}/>
 
                     {post.userVote}
-                    <ArrowDownwardIcon alt={'Icone'} /> </p>
+                    <ArrowDownwardIcon alt={'Icone'} onClick={()=>changevote(post.id)} /> 
+                    <HighlightOffIcon alt={'Iconedeletar'} onClick={() =>deletevote(post.id)}/></p>
 
-                <p> <AddCommentIcon />{post.commentCount} comentários </p>
+                <p> <AddCommentIcon onClick={() => onClickcard(post.id)}/>{post.commentCount} comentários </p>
+
             </Divcard>
         </Card >
     })
@@ -144,12 +177,10 @@ const FeedPage = () => {
 
     return (
         <div>
-            <Headers
+            <Headers 
             />
             <Container>
-                <Button1>
-                <Button onClick={goLogout}>Logout</Button>
-                </Button1>
+                    
                 <h1>Feed</h1>
                 <Form onSubmit={post}>
                     <input
