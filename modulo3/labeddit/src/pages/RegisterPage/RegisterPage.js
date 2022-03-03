@@ -83,4 +83,3 @@ const RegisterPage = () => {
 
 export default RegisterPage;
 
- //após cadastrar, o usuário deverá ser redirecionado para a página de feed, já estando logado (ou seja, com o token salvo no LocalStorage).

@@ -17,19 +17,8 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import { goToLogin, goToPost } from "../../routes/coordinator";
 import { useParams } from "react-router-dom";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import useProtectedPage from "../../hooks/useProtectPage";
 
-
-const useProtectedPage = () => {
-    const navigate = useNavigate();
-    useEffect(() => {
-
-        const token = localStorage.getItem("token");
-
-        if (token === null) {
-            navigate("/");
-        }
-    }, []);
-};
 
 const FeedPage = () => {
     useProtectedPage();
@@ -46,6 +35,7 @@ const FeedPage = () => {
     }
 
     const criarPost = () => {
+        const token = localStorage.getItem("token");
 
         axios
             .post(`${BASE_URL}/posts`, form,
@@ -63,7 +53,8 @@ const FeedPage = () => {
             )
     }
     const listarPosts = () => {
-
+        const token = localStorage.getItem("token");
+       
         axios
             .get(`${BASE_URL}/posts`,
                 {
@@ -218,22 +209,3 @@ const FeedPage = () => {
 
 export default FeedPage;
 
-
-// const curtidas = () => {
-//     console.log(curtido)
-//     if (curtido === false) {
-//         setCurtido({
-//             curtido: !curtido,
-//             numerodecurtidas: numerodecurtidas + 1
-//         })
-
-//     }
-// }
-// const naocurtido = () => {
-//     if (curtido === true) {
-//         setCurtido({
-//             curtido: !curtido,
-//             numerodecurtidas: numerodecurtidas - 1
-//         })
-//     }
-// }

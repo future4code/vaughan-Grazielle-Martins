@@ -15,18 +15,8 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { useNavigate } from "react-router-dom";
 import { goToLogin, goToPost } from "../../routes/coordinator";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import useProtectedPage from "../../hooks/useProtectPage";
 
-const useProtectedPage = () => {
-    const navigate = useNavigate();
-    useEffect(() => {
-
-        const token = localStorage.getItem("token");
-
-        if (token === null) {
-            navigate("/");
-        }
-    }, []);
-};
 function PostPage() {
     useProtectedPage();
     const [comentarios, setComentarios] = useState([])
@@ -56,7 +46,7 @@ function PostPage() {
 
             })
             .catch((erro) =>
-                console.log(erro.message)
+                console.log(erro.response)
             )
     }
 
@@ -197,20 +187,3 @@ function PostPage() {
 }
 
 export default PostPage;
-
-//form de escrever e postar, so pode ser acessada logado, caso não redireciona pra login
-
-// const [comentarios, setComentarios] = useState([])
-// const [numerocomentarios, setNumerocomentarios] = useState(0)
-// const [comentando, setComentando] = useState(false)
-
-// const Comentarios = () => {
-//     setComentarios({ comentando: !comentando})
-// }
-
-// const enviarComentario = (comentario) => {
-//     const listadecomentarios = [...comentarios, comentario]
-//     setComentarios({comentarios: listadecomentarios})
-//     setComentando({comentando: false})
-//     setNumerocomentarios({numerocomentarios: numerocomentarios + 1})
-// }
