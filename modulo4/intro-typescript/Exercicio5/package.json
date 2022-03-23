@@ -1,0 +1,18 @@
+{
+    "dependencies": {
+        "typescript": "^4.6.2"
+    },
+    "name": "intro-typescript",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "tsc && node ./index.js"
+    },
+    "author": "grazielle",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "@types/node": "^17.0.23"
+    }
+}
