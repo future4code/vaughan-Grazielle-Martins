@@ -2,7 +2,7 @@ import express from "express";
 import { rmSync } from "fs";
 
 import { AddressInfo } from "net";
-import { posts, posts, users } from "./data";
+import { posts, users } from "./data";
 
 const app = express();
 
@@ -37,17 +37,16 @@ app.get("/posts", (req, res) => {
 
 //Endpoint para retornar os posts de um usuário
 
-app.get("/post/:userId", (req, res) => {
-  const userId = req.params.userId;
-  
-  const usuarios = users.map((user)=>{
+app.get("/user/:userId", (req, res) => {
+  const userId = users.map((user)=>{
     return user.id
   })
+ 
   const post = posts.map((post) => {
-    if (usuarios === post.userId) {
-      return {post}
+    if (Number(userId) === post.userId) {
+      return {post[]}
     }
   })
-  res.send(posts);
+  res.send(post);
 
 })
