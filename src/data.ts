@@ -57,6 +57,7 @@ type Post = {
   //Acho melhor fora, pq consigo passar o type com as propriedades dos posts e a requisição
   //consigo de uma forma mais prática
 
+  
   export const posts: Post[] = [
     {
       "id": 1,
