@@ -38,15 +38,13 @@ app.get("/posts", (req, res) => {
 
 //Endpoint para retornar os posts de um usuário
 
+//Tentando terminar esse 
+
 app.get("/user/:userId", (req, res) => {
-  const userId = users.map((user)=>{
-    return user.id
-  })
- 
-  const post = posts.map((post) => {
-    if (Number(userId) === post.userId) {
-      return {post[]}
-    }
+  const userId = req.params.userId;
+  const post = posts.filter((post) => {
+    userId === post.userId
+   
   })
   res.send(post);
 

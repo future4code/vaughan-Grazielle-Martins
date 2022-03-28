@@ -51,7 +51,7 @@ type Post = {
     id: number,
     title: string,
     body: string,
-    userId: number | string
+    userId: number | string 
   }
 
   //Você acha melhor criá-los dentro ou fora do array de usuários? 
