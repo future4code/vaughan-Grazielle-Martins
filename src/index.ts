@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
 
 //Endpointpara p/ retornar os usuários
 
+
 app.get("/users", (req, res) => {
   res.status(200).send(users)
 })

@@ -46,6 +46,7 @@ export const users: User[] = [
     },
 ]
 
+
 type Post = {
     id: number,
     title: string,
