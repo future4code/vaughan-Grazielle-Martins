@@ -2,7 +2,7 @@ import express from "express";
 import { rmSync } from "fs";
 
 import { AddressInfo } from "net";
-import { users } from "./data";
+import { posts, posts, users } from "./data";
 
 const app = express();
 
@@ -17,14 +17,37 @@ const server = app.listen(process.env.PORT || 3003, () => {
   }
 });;
 
-//Requisição da mensagem
+//Endpoint da mensagem
 
 app.get("/", (req, res) => {
-    res.send("Hello from Express")
+  res.send("Hello from Express")
 })
 
-//Requisiçãopara retornar os usuários
+//Endpointpara p/ retornar os usuários
 
 app.get("/users", (req, res) => {
   res.status(200).send(users)
+})
+
+//Endpoint  p/ retornar os posts
+
+app.get("/posts", (req, res) => {
+  res.status(200).send(posts)
+})
+
+//Endpoint para retornar os posts de um usuário
+
+app.get("/post/:userId", (req, res) => {
+  const userId = req.params.userId;
+  
+  const usuarios = users.map((user)=>{
+    return user.id
+  })
+  const post = posts.map((post) => {
+    if (usuarios === post.userId) {
+      return {post}
+    }
+  })
+  res.send(posts);
+
 })
