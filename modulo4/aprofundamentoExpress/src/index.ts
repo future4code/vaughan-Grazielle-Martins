@@ -21,7 +21,7 @@ app.get("/ping",(req, res) =>{
 })
 
 app.get("/completed", (req, res) =>{
-  const getStatus = Boolean(req.query.completed)
+  const getStatus = req.query.completed == 'true'
  
     const filterTodo = arrayToDo.filter((todo)=>{
        return todo.completed === getStatus
@@ -39,38 +39,35 @@ app.post("/todo", (req, res) =>  {
   res.send(arrayToDo)
 })
 
-app.post("/completed/:id", (req, res) =>  {
+app.put("/completed/:id", (req, res) =>  {
  const id = req.params.id
-  const bodyDoTodo = req.body.completed
+ const editCompleted = arrayToDo.filter((completed) =>{
+   return completed.id === Number(id)
+ })[0]
+ 
+ editCompleted.completed = !editCompleted.completed
 
-  const novoCompleted = {
-    id: id,
-    completed: bodyDoTodo
-  }
-
-  res.send(novoCompleted)
+  res.send(editCompleted)
 })
 
-app.delete("/todo/:userId", (req, res) => {
-  const userId = Number(req.params.userId)
+app.delete("/todo/:id", (req, res) => {
+  const id = Number(req.params.id)
+  
+  const todosDelete = arrayToDo.filter((todo) => {
+    return todo.id === id
+  })[0]
+  const indice = arrayToDo.indexOf(todosDelete)
+  const splice = arrayToDo.splice(indice,1)
 
-  const todosUpdated = arrayToDo.map((todo) => {
-    if (todo.id === userId) {
-      return { ...todo, arrayToDo: [] }
-  } else {
-      return todo
-  }
-  })
-
-  res.send(todosUpdated);
+  res.send(arrayToDo);
 })
 
 app.get("/todo/user/:id", (req, res) => {
   const id = Number(req.params.id)
 
-  const todosUpdated = arrayToDo.map((todo) => {
-    todo.id === id
-  })
+  const todoUser: any = arrayToDo.filter((todo) => {
+      return todo.userId === id
+    })
 
-  res.send(todosUpdated);
+  res.send(todoUser)
 })
