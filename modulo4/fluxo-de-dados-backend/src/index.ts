@@ -125,14 +125,28 @@ app.put("/editprice/:id", (req, res) => {
 })
 
 app.delete("/delete/:id", (req, res) => {
+    try{
+        const id = req.params.id
 
-    const id = req.params.id
-
-    const deleteProduct = products.filter((product) => {
-        return product.id === id
-    })[0]
-    const indice = products.indexOf(deleteProduct)
-    const splice = products.splice(indice, 1)
-
-    res.send(products)
+        const deleteProduct = products.filter((product) => {
+            return product.id === id
+        })[0]
+        if (!deleteProduct) {
+            throw new Error("Produto não encontrado!")
+        }
+        const indice = products.indexOf(deleteProduct)
+        const splice = products.splice(indice, 1)
+    
+        res.send(products)
+    }catch(e: any){
+        switch (e.message) {
+            case "Id não encontrado!":
+                res.status(409).send(e.message)
+                break
+            default:
+                res.status(500).send(e.message)
+                break
+        }
+    }
+  
 })
