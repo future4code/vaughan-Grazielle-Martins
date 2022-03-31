@@ -103,3 +103,25 @@ app.get("/users", (req, res) => {
 //A) Pelo filtro, filtrei os types e peguei só os que estavam iguais à requisição.
 //B) Tinha utilizado o ENUM e defini os tipos e depois dei como o valor de type o ENUM
 
+app.get("/user", (req, res) => {
+   let errorCode = 400
+
+      try {
+            const nameUser: string = req.query.name as string
+            
+            const names = users.find((name) => {
+               return name.name.toLowerCase() === nameUser.toLowerCase()
+            });
+            if (!names) {
+               errorCode = 404;
+               throw new Error("User not found");
+             }
+      
+            res.status(200).send(names)
+         } catch (error: any) {
+            res.status(errorCode).send({ message: error.message })
+         }
+})
+
+//a) Utilizei o req.query passando uma chave e um valor(paramêtro) 
+//b) Feito
