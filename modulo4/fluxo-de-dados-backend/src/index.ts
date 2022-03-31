@@ -45,7 +45,7 @@ app.post("/newproduct", (req, res) => {
             throw new Error("Price é menor que 0")
         }
         products.push(newProduct)
-       
+
         res.send(products)
     } catch (e: any) {
         switch (e.message) {
@@ -77,15 +77,51 @@ app.get("/allproducts", (req, res) => {
 })
 
 app.put("/editprice/:id", (req, res) => {
-    const id = req.params.id
-    const body = req.body.price
-    const editprice = products.filter((price) => {
-        return price.id === id
-    })[0]
+    try {
+        const id = req.params.id
+        
+        const body = req.body.price
+        
+        if (!body) {
+            throw new Error("Price está vazio")
+        }
+        if (typeof body !== "number") {
+            throw new Error("Price é diferente de number")
+        }
+        if (body <= 0) {
+            throw new Error("Price é igual ou menor que 0")
+        }
+        const editprice = products.filter((price) => {
+            return price.id === id
+        })[0]
 
-    editprice.price = body
+        if (!editprice) {
+            throw new Error("Id não encontrado!")
+        }
+        editprice.price = body
 
-    res.send(editprice)
+        res.send(editprice)
+
+    } catch (e: any) {
+        switch (e.message) {
+            case "Price está vazio":
+                res.status(422).send(e.message)
+                break
+            case "Price é diferente de number":
+                res.status(422).send(e.message)
+                break
+            case "Price é igual ou menor que 0":
+                res.status(422).send(e.message)
+                break
+            case "Id não encontrado!":
+                res.status(409).send(e.message)
+                break
+            default:
+                res.status(500).send(e.message)
+                break
+        }
+
+    }
 })
 
 app.delete("/delete/:id", (req, res) => {
