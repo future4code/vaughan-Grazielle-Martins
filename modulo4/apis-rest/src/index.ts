@@ -125,3 +125,32 @@ app.get("/user", (req, res) => {
 
 //a) Utilizei o req.query passando uma chave e um valor(paramêtro) 
 //b) Feito
+
+
+app.post("/user", (req, res)=>{
+   let errorCode: number = 400;
+   try {
+
+      const {id, name, email, type, age} = req.body
+
+      if (!id || !name || !email || !type || !age) {
+         errorCode = 422;
+         throw new Error("Some field is null!");
+       }
+
+      const adduser: Users = {
+         id,
+         name,
+         email,
+         type,
+         age,
+      }
+      users.push(adduser)
+      res.status(200).send(users)
+   } catch (error: any) {
+      res.status(errorCode).send({ message: error.message })
+   }
+})
+
+//a) com o método PUT criou da mesma forma
+//b) Acredito que usar o put seria o ideal para atualizar algo que ja exite e o post para criar
