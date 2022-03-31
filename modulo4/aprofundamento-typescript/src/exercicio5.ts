@@ -1,1 +1,0 @@
-//a) versão no target es5, tem o "forceConsistentCasingInFileNames" (proibe referências inconsistentes), tem o "esModuleInterop",  "strict"
