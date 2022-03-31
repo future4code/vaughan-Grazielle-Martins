@@ -81,23 +81,25 @@ let users: Users[] = [
 app.get("/users", (req, res) => {
    let errorCode = 400
 
-   if (req) {
       try {
-         const typeUser: string = req.query.type as string
-         const types = users.filter((type) => {
-            return type.type === typeUser
-         });
-   
-         res.status(200).send(types)
-      } catch (error: any) {
-         res.status(errorCode).send({ message: error.message })
-      }
-
-   } else {
-      res.status(200).send(users)
-   }
-
+        
+         if (Object.keys(req.query).length > 0) {
+            
+            const typeUser: string = req.query.type as string
+            
+            const types = users.filter((type) => {
+               return type.type === typeUser
+            });
+      
+            res.status(200).send(types)
+         }
+            res.status(200).send(users)
+         
+         } catch (error: any) {
+            res.status(errorCode).send({ message: error.message })
+         }
 })
 
 //A) Pelo filtro, filtrei os types e peguei só os que estavam iguais à requisição.
 //B) Tinha utilizado o ENUM e defini os tipos e depois dei como o valor de type o ENUM
+
