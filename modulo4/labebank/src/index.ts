@@ -18,17 +18,35 @@ const server = app.listen(process.env.PORT || 3003, () => {
 });
 
 app.post("/user", (req, res)=>{
-   
+    let errorCode = 422
+    try {
+        
        const { name, cpf, datadenascimento, saldo, transacoes} = req.body
  
        const adduser: Users = {
           
           name,
           cpf,
-          datadenascimento,
+          datadenascimento: new Date(datadenascimento),
           saldo,
           transacoes
        }
+       
+       let novadata: number = new Date().getFullYear()
+       let idade = novadata - adduser.datadenascimento.getFullYear()
+       
+       if (idade < 18) {
+        errorCode = 404;
+        throw new Error("Precisar ter no mínimo 18 anos ");
+      }
        users.push(adduser)
        res.status(200).send(users)
+    } catch (error: any) {
+        res.status(errorCode).send({ message: error.message })
+    }
+   
+    })
+
+    app.get("/users", (req, res) => {
+        res.status(200).send(users)
     })
