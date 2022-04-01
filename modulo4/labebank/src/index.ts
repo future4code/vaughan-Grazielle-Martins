@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { AddressInfo } from "net";
-import { users, Users} from "./data";
+import { Extrato, users, Users} from "./data";
 
 
 const app = express();
@@ -88,4 +88,26 @@ app.post("/user", (req, res)=>{
         }
    
 
+    })
+
+    app.put("/user", (req, res) => {
+        const nameuser = req.query.name
+        const cpfuser = req.query.cpf
+       
+        const find = users.find((user)=>{
+           return user.name === nameuser 
+            
+        })
+        const { valor, data, descricao} = req.body
+ 
+        const addvalue: Extrato = {
+           
+          valor,
+          data,
+          descricao
+        }
+        
+        find?.transacoes.push(addvalue)
+
+        res.status(200).send(find)
     })
