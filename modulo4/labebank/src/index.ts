@@ -28,7 +28,7 @@ app.post("/user", (req, res)=>{
           name,
           cpf,
           datadenascimento: new Date(datadenascimento),
-          saldo,
+          saldo: 0,
           transacoes
        }
        
@@ -38,6 +38,14 @@ app.post("/user", (req, res)=>{
        if (idade < 18) {
         errorCode = 404;
         throw new Error("Precisar ter no mínimo 18 anos ");
+      }
+      const cpfcadastrado = users.find((cpfuser)=>{
+          return cpfuser.cpf === cpf
+      })
+      console.log(cpfcadastrado)
+       if (cpfcadastrado) {
+        errorCode = 404;
+        throw new Error("CPF já cadastrado");
       }
        users.push(adduser)
        res.status(200).send(users)
