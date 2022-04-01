@@ -60,21 +60,32 @@ app.post("/user", (req, res)=>{
     })
 
     app.get("/user/balance", (req, res) => {
-        const nomeuser = req.query.name 
-        const cpfuser = req.query.cpf
-
-        const filtro = users.filter((user)=>{
-            return user.name === nomeuser
-        })
-        
-        const serachname = users.find((name) => {
-            return name.name === nomeuser
+        let errorCode: number = 422
+        try {
+            const nomeuser = req.query.name 
+            const cpfuser = req.query.cpf
+           
+    
+            const filtro = users.filter((user)=>{
+                return user.name === nomeuser
+            })
+            
+            const serachname = users.find((name) => {
+                return name.name === nomeuser
+            }
+            )
+            const serchcpf = users.find((cpf) => {
+                return cpf.cpf === cpfuser
+            }
+            )
+            if (!serachname || !serchcpf) {
+                errorCode = 422;
+                throw new Error("Name ou CPF inválido!");
+              }
+            res.status(200).send({saldo: filtro[0].saldo})
+        } catch (error: any) {
+            res.status(errorCode).send({ message: error.message })
         }
-        )
-        const serchcpf = users.find((cpf) => {
-            return cpf.cpf === cpfuser
-        }
-        )
-        res.status(200).send({saldo: filtro[0].saldo})
+   
 
     })
