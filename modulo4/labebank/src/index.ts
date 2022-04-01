@@ -58,3 +58,23 @@ app.post("/user", (req, res)=>{
     app.get("/users", (req, res) => {
         res.status(200).send(users)
     })
+
+    app.get("/user/balance", (req, res) => {
+        const nomeuser = req.query.name 
+        const cpfuser = req.query.cpf
+
+        const filtro = users.filter((user)=>{
+            return user.name === nomeuser
+        })
+        
+        const serachname = users.find((name) => {
+            return name.name === nomeuser
+        }
+        )
+        const serchcpf = users.find((cpf) => {
+            return cpf.cpf === cpfuser
+        }
+        )
+        res.status(200).send({saldo: filtro[0].saldo})
+
+    })
