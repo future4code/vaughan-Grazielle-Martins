@@ -8,7 +8,7 @@ export type Users = {
 
 export type Extrato = {
     valor: number,
-    data: string,
+    data: string | number,
     descricao: string
 }
 

@@ -114,3 +114,45 @@ app.post("/user", (req, res)=>{
 
         res.status(200).send(filteruser)
     })
+
+    app.put("/user/pagar", (req, res) => {
+        let errorCode: number = 422
+        try {
+            const nameuser = req.query.name
+            const cpfuser = req.query.cpf
+           
+            let filteruser = users.filter((user)=>{
+               return user.name === nameuser 
+                
+            })[0]
+            const { valor, data, descricao} = req.body
+     
+            const addvalue: Extrato = {
+               
+              valor,
+              data,
+              descricao
+            }
+    
+            filteruser.saldo -= addvalue.valor
+        
+            // let novadata: number = new Date().getDate()
+            
+
+            // if (addvalue.data < novadata ) {
+            //     errorCode = 422;
+            //         throw new Error("Data inválida!");
+            // }
+            if (addvalue.valor > filteruser.saldo) {
+                errorCode = 422;
+                    throw new Error("Valor indisponivel!");
+            }
+            filteruser?.transacoes.push(addvalue)
+    
+            res.status(200).send(filteruser)
+            
+        } catch (error: any) {
+            res.status(errorCode).send({ message: error.message })
+        }
+       
+    })
