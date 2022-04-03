@@ -94,10 +94,10 @@ app.post("/user", (req, res)=>{
         const nameuser = req.query.name
         const cpfuser = req.query.cpf
        
-        const find = users.find((user)=>{
+        let filteruser = users.filter((user)=>{
            return user.name === nameuser 
             
-        })
+        })[0]
         const { valor, data, descricao} = req.body
  
         const addvalue: Extrato = {
@@ -106,8 +106,11 @@ app.post("/user", (req, res)=>{
           data,
           descricao
         }
-        
-        find?.transacoes.push(addvalue)
 
-        res.status(200).send(find)
+        filteruser.saldo += addvalue.valor
+    
+        
+        filteruser?.transacoes.push(addvalue)
+
+        res.status(200).send(filteruser)
     })
