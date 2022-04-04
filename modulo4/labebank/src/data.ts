@@ -8,7 +8,7 @@ export type Users = {
 
 export type Extrato = {
     valor: number,
-    data: string | number,
+    data: string | number | Date,
     descricao: string
 }
 
@@ -16,7 +16,7 @@ export const users: Users[] = [
     {
         name: "Bob",
         cpf: "111.111.111-11",
-        datadenascimento: new Date("20/08/1992"),
+        datadenascimento: new Date("1992-02-08"),
         saldo: 10,
         transacoes: [{
             valor: 20,
@@ -27,7 +27,7 @@ export const users: Users[] = [
     {
         name: "Grazielle",
         cpf: "222.111.111-11",
-        datadenascimento: new Date("01/12/1994"),
+        datadenascimento: new Date("1994-12-01"),
         saldo: 200,
         transacoes: [{
             valor: 5000,
@@ -38,7 +38,7 @@ export const users: Users[] = [
     {
         name: "Arthur",
         cpf: "333.111.111-11",
-        datadenascimento: new Date("25/08/1994"),
+        datadenascimento: new Date("1994-08-25"),
         saldo: 300,
         transacoes: [{
             valor: 220,
@@ -49,7 +49,7 @@ export const users: Users[] = [
     {
         name: "Levi",
         cpf: "444.111.111-11",
-        datadenascimento: new Date("29/02/2020"),
+        datadenascimento: new Date("2020-02-29"),
         saldo: 250,
         transacoes: [{
             valor: 2000,
@@ -60,7 +60,7 @@ export const users: Users[] = [
     {
         name: "Junior",
         cpf: "555.111.111-11",
-        datadenascimento: new Date("24/08/2010"),
+        datadenascimento: new Date("2010-08-24"),
         saldo: 500,
         transacoes: [{
             valor: 205,

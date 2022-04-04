@@ -126,23 +126,29 @@ app.post("/user", (req, res)=>{
                 
             })[0]
             const { valor, data, descricao} = req.body
-     
+            let novadata
+
+            if(data === ""){
+                novadata = new Date()
+            } else {
+                novadata = new Date(data)
+            }
+
             const addvalue: Extrato = {
                
               valor,
-              data,
+              data: novadata,
               descricao
             }
     
             filteruser.saldo -= addvalue.valor
         
-            // let novadata: number = new Date().getDate()
-            
-
-            // if (addvalue.data < novadata ) {
-            //     errorCode = 422;
-            //         throw new Error("Data inválida!");
-            // }
+            let dataatual = new Date()
+           
+            if (addvalue.data < dataatual ) {
+                errorCode = 422;
+                    throw new Error("Data inválida!");
+            }
             if (addvalue.valor > filteruser.saldo) {
                 errorCode = 422;
                     throw new Error("Valor indisponivel!");
@@ -155,4 +161,26 @@ app.post("/user", (req, res)=>{
             res.status(errorCode).send({ message: error.message })
         }
        
+    })
+
+    app.get("/user/cpf", (req, res)=>{
+        let errorCode: number = 422
+        try {
+            const cpfuser = req.query.cpf
+
+            const filtro: any = users.filter((user)=>{
+                return user.cpf === cpfuser
+            })
+            const serchcpf = users.find((cpf) => {
+                return cpf.cpf === cpfuser
+            }
+            )
+            if (!serchcpf) {
+                errorCode = 422;
+                throw new Error("CPF inválido!");
+              }
+            res.status(200).send({saldo: filtro[0].saldo})            
+        } catch (error: any) {
+            res.status(errorCode).send({ message: error.message })
+        }
     })
