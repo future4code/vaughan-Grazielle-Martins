@@ -59,6 +59,6 @@ a) Retorna os dados presentes nas duas tabelas, ON é pra fazer a referência do
 
 b) 
 ```
-SELECT m.id as movie_id, r.rate as rating FROM Movie m
+SELECT m.id as  movie_id, m.title, r.rate as rating FROM Movie m
 INNER JOIN Rating r ON m.id = r.movie_id;
 ```
