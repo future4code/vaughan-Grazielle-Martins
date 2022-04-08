@@ -82,3 +82,40 @@ app.get("/user/:id", async (req, res) => {
       });
    }
 });
+const updateUser = async (id: string, name: string, nickname: string): Promise<any> => {
+   
+   await connection("TodoListUser")
+       .update({
+          id: id,
+           name: name,
+           nickname: nickname
+       })
+       .where("id", id);
+};
+
+app.put("/user/edit/:id", async (req, res) => {
+   let errorCode = 422
+   try {
+      const id = req.params.id
+      if (req.body.name === "") {
+         errorCode = 422;
+             throw new Error("Name inválido!");
+     }
+      if (req.body.nickname === "") {
+         errorCode = 422;
+             throw new Error("Nickname inválido!");
+     }
+       const edituser = await updateUser(req.params.id, req.body.name, req.body.nickname);
+       
+       
+       res.status(200).send({
+           message: "Editado com sucesso!", edituser
+         })
+   } catch (err: any) {
+       res.status(400).send({
+           message: err.message,
+       });
+   }
+});
+
+
