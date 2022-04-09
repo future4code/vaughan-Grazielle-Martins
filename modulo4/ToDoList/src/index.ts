@@ -155,3 +155,28 @@ app.post("/task", async (req, res) => {
    }
 });
 
+app.get("/task/:id", async (req, res) => {
+   let errorCode = 422
+   try {
+      const id = req.params.id;
+      const getId = async (id: string): Promise<any> => {
+         const result = await connection("TodoListTask")
+         .join("TodoListUser","TodoListTask.creator_user_id","TodoListUser.id" )
+            .select("TodoListTask.id", "title", "description", "limit_date", "status", "creator_user_id", "nickname")
+            .where({ "TodoListTask.id": id });
+
+         return result[0];
+      }
+
+      const task = await getId(id);
+      if (!task) {
+         errorCode = 422;
+         throw new Error("Task inválido!");
+      }
+      res.status(200).send({ task });
+   } catch (err: any) {
+      res.status(400).send({
+         message: err.message,
+      });
+   }
+});
