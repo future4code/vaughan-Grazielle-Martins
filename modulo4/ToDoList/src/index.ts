@@ -54,7 +54,13 @@ app.post("/user", async (req, res) => {
 });
 
 
-//Seria melhot criar da forma acima ou abaixo? 
+
+
+
+//Seria melhot criar da forma acima com a função separada do endpoint ou abaixo? 
+
+
+
 
 
 app.get("/user/:id", async (req, res) => {
@@ -180,3 +186,13 @@ app.get("/task/:id", async (req, res) => {
       });
    }
 });
+
+app.get("/users", async (req, res): Promise<void> =>{
+   try {
+       const resultado = await connection("TodoListUser")
+       .select("id", "nickname")
+       res.status(200).send({users: resultado})
+   } catch (error:any) {
+       res.status(500).send(error.sqlMessage || error.message)
+   }
+})
