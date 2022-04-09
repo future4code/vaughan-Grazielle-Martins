@@ -196,3 +196,31 @@ app.get("/users", async (req, res): Promise<void> =>{
        res.status(500).send(error.sqlMessage || error.message)
    }
 })
+
+app.get("/task", async (req, res) => {
+   let errorCode = 422
+   try {
+      
+      const iduser = req.query.creator_user_id as string;
+      if (!iduser) {
+         errorCode = 422;
+         throw new Error("Creator_user_id inválido!");
+      }
+      const getTaskIduser = async (id: string): Promise<any> => {
+         const result = await connection("TodoListTask")
+         .join("TodoListUser","TodoListTask.creator_user_id","TodoListUser.id" )
+            .select("TodoListTask.id", "title", "description", "limit_date", "status", "creator_user_id", "nickname")
+            .where({ "TodoListTask.id": iduser });
+
+         return result[0];
+      }
+      
+      const task = await getTaskIduser(iduser);
+      
+      res.status(200).send({ task: task });
+   } catch (err: any) {
+      res.status(400).send({
+         message: err.message,
+      });
+   }
+});
