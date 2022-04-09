@@ -39,10 +39,10 @@ app.post("/user", async (req, res) => {
    try {
       if (!req.body.name || !req.body.nickname || !req.body.email) {
          errorCode = 422;
-             throw new Error("Existe um campo vazio ou inválido!");
-     }
+         throw new Error("Existe um campo vazio ou inválido!");
+      }
       const createUser = await create(req.body.name, req.body.nickname, req.body.email);
-     
+
       res.status(200).send({
          message: "Criado com sucesso!", createUser
       })
@@ -52,7 +52,7 @@ app.post("/user", async (req, res) => {
       });
    }
 });
- 
+
 
 //Seria melhot criar da forma acima ou abaixo? 
 
@@ -65,17 +65,17 @@ app.get("/user/:id", async (req, res) => {
          const result = await connection("TodoListUser")
             .select("id", "name")
             .from("TodoListUser")
-            .where({ id: id});
+            .where({ id: id });
 
          return result[0];
       }
-      
+
       const user = await getId(id);
       if (!user) {
          errorCode = 422;
-             throw new Error("Id inválido!");
-     }
-      res.status(200).send({user});
+         throw new Error("Id inválido!");
+      }
+      res.status(200).send({ user });
    } catch (err: any) {
       res.status(400).send({
          message: err.message,
@@ -83,14 +83,14 @@ app.get("/user/:id", async (req, res) => {
    }
 });
 const updateUser = async (id: string, name: string, nickname: string): Promise<any> => {
-   
+
    await connection("TodoListUser")
-       .update({
-          id: id,
-           name: name,
-           nickname: nickname
-       })
-       .where("id", id);
+      .update({
+         id: id,
+         name: name,
+         nickname: nickname
+      })
+      .where("id", id);
 };
 
 app.put("/user/edit/:id", async (req, res) => {
@@ -99,23 +99,59 @@ app.put("/user/edit/:id", async (req, res) => {
       const id = req.params.id
       if (req.body.name === "") {
          errorCode = 422;
-             throw new Error("Name inválido!");
-     }
+         throw new Error("Name inválido!");
+      }
       if (req.body.nickname === "") {
          errorCode = 422;
-             throw new Error("Nickname inválido!");
-     }
-       const edituser = await updateUser(req.params.id, req.body.name, req.body.nickname);
-       
-       
-       res.status(200).send({
-           message: "Editado com sucesso!", edituser
-         })
+         throw new Error("Nickname inválido!");
+      }
+      const edituser = await updateUser(req.params.id, req.body.name, req.body.nickname);
+
+
+      res.status(200).send({
+         message: "Editado com sucesso!", edituser
+      })
    } catch (err: any) {
-       res.status(400).send({
-           message: err.message,
-       });
+      res.status(400).send({
+         message: err.message,
+      });
    }
 });
 
+const createTask = async (
+   title: string,
+   description: string,
+   limit_date: Date,
+   creator_user_id: string
+): Promise<any> => {
+   await connection("TodoListTask")
+      .insert(
+         {
+            id: Date.now().toString(),
+            title: title,
+            description: description,
+            limit_date: limit_date,
+            creator_user_id: creator_user_id
+         })
+
+};
+
+app.post("/task", async (req, res) => {
+   let errorCode = 422
+   try {
+      if (!req.body.title || !req.body.description || !req.body.limit_date || !req.body.creator_user_id) {
+         errorCode = 422;
+         throw new Error("Existe um campo vazio ou inválido!");
+      }
+      const createT = await createTask(req.body.title, req.body.description, req.body.limit_date, req.body.creator_user_id);
+
+      res.status(200).send({
+         message: "Criado com sucesso!", createT
+      })
+   } catch (err: any) {
+      res.status(400).send({
+         message: err.message,
+      });
+   }
+});
 
