@@ -224,3 +224,23 @@ app.get("/task", async (req, res) => {
       });
    }
 });
+
+app.get("/user", async (req, res) => {
+   let errorCode = 422
+   try {
+      
+      const busca = req.query.query ;
+      if (!busca) {
+         errorCode = 422;
+         throw new Error("Query inválida!");
+      }
+             const resultado: any = await connection("TodoListUser")
+             .select("id", "nickname", "email")
+             .from("TodoListUser")
+             .where({nickname: busca}).orWhere({email:busca});
+             res.status(200).send({users: resultado})
+         } catch (error:any) {
+             res.status(500).send(error.sqlMessage || error.message)
+         }
+});
+
