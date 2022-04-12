@@ -67,3 +67,24 @@ export const ordenacaoUsers = async (req: Request, res: Response): Promise<void>
         res.send(error.message || error.sqlMessage)
     }
 }
+
+//Exercicio - 3
+
+export const listUsers = async(req: Request,res: Response): Promise<void> =>{
+    try {
+        
+        let quantidadeExibida = 5
+        let pagina = Number(req.query.pagina)
+        let offset = quantidadeExibida * (pagina - 1)
+
+        const result = await connection("aula48_exercicio")
+            .select("*")
+            .limit(quantidadeExibida)
+            .offset(offset)
+
+
+        res.status(200).send(result)
+    } catch (error: any) {
+        res.send(error.message || error.sqlMessage)
+    }
+ }
