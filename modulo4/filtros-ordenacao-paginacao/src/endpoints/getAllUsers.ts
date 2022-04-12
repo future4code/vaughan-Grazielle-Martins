@@ -88,3 +88,48 @@ export const listUsers = async(req: Request,res: Response): Promise<void> =>{
         res.send(error.message || error.sqlMessage)
     }
  }
+
+ //Exercicio - 4
+
+export const allEndpoints = async(req: Request,res: Response): Promise<void> =>{
+    try {
+        const { name } = req.query
+        const { type } = req.params
+        let ordernar = req.query.ordenacao as string
+        let pagina = Number(req.query.pagina)
+        if (!pagina) {
+            pagina = 1 
+ 
+         }
+        let quantidadeExibida = 5
+        let offset = quantidadeExibida * (pagina - 1)
+        if (!name || !type) {
+            const result = await connection("aula48_exercicio")
+            .select("*")
+            .from("aula48_exercicio");
+
+        }
+        if (!ordernar) {
+            const result = await connection("aula48_exercicio")
+            .select("*")
+            .orderBy('name', 'DESC')
+
+        }
+        
+        const result = await connection("aula48_exercicio")
+            .select("*")
+            .where("name", "like", `%${name}%`)
+            .where("type", "like", `%${type}%`)
+            .orderBy('name', `${ordernar}`)
+            .orderBy('type', `${ordernar}`)
+            .limit(quantidadeExibida)
+            .offset(offset)
+
+
+        res.status(200).send(result)
+    } catch (error: any) {
+        res.send(error.message || error.sqlMessage)
+    }
+ }
+
+
