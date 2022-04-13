@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Address } from '../types'
 
-//exercicio 2
+//exercicio 2 e 3
 
 const baseUrl = "https://viacep.com.br/ws"
 
