@@ -93,8 +93,8 @@ export const listUsers = async(req: Request,res: Response): Promise<void> =>{
 
 export const allEndpoints = async(req: Request,res: Response): Promise<void> =>{
     try {
-        const { name } = req.query
-        const { type } = req.params
+        const { name, type } = req.query
+       
         let ordernar = req.query.ordenacao as string
         let pagina = Number(req.query.pagina)
         if (!pagina) {
@@ -103,25 +103,16 @@ export const allEndpoints = async(req: Request,res: Response): Promise<void> =>{
          }
         let quantidadeExibida = 5
         let offset = quantidadeExibida * (pagina - 1)
-        if (!name || !type) {
-            const result = await connection("aula48_exercicio")
-            .select("*")
-            .from("aula48_exercicio");
-
+        if (ordernar.toUpperCase() !== 'ASC' && ordernar.toUpperCase() !== 'DESC') {
+            ordernar = 'DESC'
         }
-        if (!ordernar) {
-            const result = await connection("aula48_exercicio")
-            .select("*")
-            .orderBy('name', 'DESC')
-
-        }
+     
         
         const result = await connection("aula48_exercicio")
             .select("*")
             .where("name", "like", `%${name}%`)
             .where("type", "like", `%${type}%`)
             .orderBy('name', `${ordernar}`)
-            .orderBy('type', `${ordernar}`)
             .limit(quantidadeExibida)
             .offset(offset)
 
