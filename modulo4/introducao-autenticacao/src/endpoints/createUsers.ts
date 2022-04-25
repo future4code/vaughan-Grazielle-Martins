@@ -18,39 +18,39 @@ export default async function createUsers(
       }
 
       if (!req.body.email || req.body.email.indexOf("@") === -1) {
-        throw new Error("Email should have '@' and should not be ampty");
+         throw new Error("Email should have '@' and should not be ampty");
       }
 
       if (!req.body.password || req.body.password.length < 6) {
-        throw new Error("Password should have 6 characters");
+         throw new Error("Password should have 6 characters");
       }
 
       const [user] = await connection('Users')
-      .where({ email })
+         .where({ email })
 
       if (user) {
          res.statusCode = 409
          throw new Error('Email já cadastrado')
       }
-      
+
       const id: string = generateId()
 
       const newUser: user = { id, email, password }
 
-     
+
       await createUser(id, newUser.email, newUser.password);
 
-       const authenticator: Authenticator = new Authenticator()
-      const payload:authenticationData = {
+      const authenticator: Authenticator = new Authenticator()
+      const payload: authenticationData = {
          id: newUser.id
       }
       const token = authenticator.GenerateToken(payload)
 
-      res.status(201).send({ Token : token })
+      res.status(201).send({ Token: token })
 
    } catch (err: any) {
       res.status(400).send({
-        message: err.message,
+         message: err.message,
       });
-    }
-  };
+   }
+};

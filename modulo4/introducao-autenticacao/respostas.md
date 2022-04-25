@@ -59,5 +59,8 @@ export class Authenticator {
 }
 
 Exercicio 7
-Exercicio 8
+
+a) retorna qualquer valor, ela pode receber qualquer valor ali para ser verificado
+
+
 ```

@@ -12,7 +12,7 @@ export default async function login(
         const { email, password } = req.body;
         if (!email || !password) {
             res.statusCode = 422;
-            throw new Error("Por favor preencha 'email' e 'senha'")
+            throw new Error("Preencha os campos: 'email' e 'password' ")
         }
         if (!email || email.indexOf("@") === -1) {
             throw new Error("Email should have '@' and should not be ampty");

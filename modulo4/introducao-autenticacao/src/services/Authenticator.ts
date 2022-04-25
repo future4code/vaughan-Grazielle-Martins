@@ -2,6 +2,9 @@ import * as jwt from "jsonwebtoken";
 import { authenticationData } from "../types";
 
 export class Authenticator {
+    static getData(token: string) {
+        throw new Error("Method not implemented.");
+    }
     GenerateToken = (payload: authenticationData) => {
         return jwt.sign(
             payload,
@@ -12,15 +15,13 @@ export class Authenticator {
         )
     }
 
-    GetTokenData = (token: string)=> {
-        try {
-            const tokenData = jwt.verify(
-                token, process.env.JWT_KEY as string
-            ) as authenticationData
-            return tokenData;
-        } catch (err) {
-            console.log(err)
-            return null
-        }
-    }
+
+
+    getData = (token: string): authenticationData => {
+        const payload = jwt.verify(token,`${process.env.JWT_SECRET_KEY}`as string) as any;
+        const result = {
+            id: payload.id,
+        };
+        return result;
+    };
 }
