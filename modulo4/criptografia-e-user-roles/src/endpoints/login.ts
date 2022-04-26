@@ -42,9 +42,13 @@ export default async function login(
           }
         const authenticator: Authenticator = new Authenticator()
         const payload: authenticationData = {
-            id: user.id
+            id: user.id,
+            role: user.role
         }
-        const token = authenticator.GenerateToken(payload)
+        const token = authenticator.GenerateToken({
+            id: user.id,
+            role: user.role,
+          })
         res.status(200).send({ Token: token })
 
     } catch (err: any) {

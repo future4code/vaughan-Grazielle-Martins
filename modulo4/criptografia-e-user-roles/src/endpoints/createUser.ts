@@ -13,11 +13,11 @@ export default async function createUsers(
    res: Response
 ): Promise<void> {
    try {
-      const { email, password } = req.body
+      const { email, password, role } = req.body
 
-      if (!email || !password) {
+      if (!email || !password ||!role) {
          res.statusCode = 422
-         throw new Error("Preencha os campos: 'email' e 'password' ")
+         throw new Error("Preencha os campos: 'email','password' e 'role' ")
       }
 
       if (!req.body.email || req.body.email.indexOf("@") === -1) {
@@ -35,20 +35,24 @@ export default async function createUsers(
          res.statusCode = 409
          throw new Error('Email já cadastrado')
       }
-
+      
       const id: string = generateId()
-
+     
       let hashManager: HashManager = new HashManager()
       const cypherPassword = hashManager.generateHash(password)
       
       const newUser: user = { id, email, password: cypherPassword}
-      await createUser(id, newUser.email, newUser.password);
+      await createUser(id, newUser.email, newUser.password, role);
 
       const authenticator: Authenticator = new Authenticator()
       const payload: authenticationData = {
-         id: newUser.id
+         id: newUser.id,
+         role: role
       }
-      const token = authenticator.GenerateToken(payload)
+      const token = authenticator.GenerateToken({
+         id,
+         role: role
+       })
 
       res.status(201).send({ Token: token })
 
