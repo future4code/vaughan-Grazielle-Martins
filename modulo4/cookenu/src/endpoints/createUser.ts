@@ -7,9 +7,9 @@ import { IdGenerator } from "../services/IdGenerator";
 
 export async function signup(req: Request, res: Response){
     try {
-        const {name, email, password} = req.body
-        if (!name || !email || !password) {
-            res.status(422).send("Insira as informações de 'name', 'email' e 'password'.")
+        const {name, email, password, role} = req.body
+        if (!name || !email || !password || !role) {
+            res.status(422).send("Insira as informações de 'name', 'email', 'role' e 'password'.")
         }
         if (!req.body.password || req.body.password.length < 6) {
             throw new Error("A senha precisa ter no minimo 6 caracters");
@@ -23,16 +23,16 @@ export async function signup(req: Request, res: Response){
         
         const idGenerator = new IdGenerator();
         const id = idGenerator.generate();
-
+       
         const hashManager = new HashManager()
         const haskPassword = hashManager.generateHash(password)
 
-        const newUser = new User(id, name,email,haskPassword)
+        const newUser = new User(id, name,email,haskPassword, role)
         
         await userDatabase.createUser(newUser)
 
         const authenticator = new Authenticator()
-        const token = authenticator.GenerateToken({id})
+        const token = authenticator.GenerateToken({id, role})
         res.status(201).send({message: "Usuário criado" ,token: token})
 
     } catch (err: any) {

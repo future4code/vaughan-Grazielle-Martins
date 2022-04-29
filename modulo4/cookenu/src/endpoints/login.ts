@@ -31,7 +31,7 @@ export async function login(req: Request, res: Response){
             res.status(401).send("Email ou senha incorreta!")
         }
         const authenticator = new Authenticator()
-        const token = authenticator.GenerateToken({id: (await user).getId()})
+        const token = authenticator.GenerateToken({id: (await user).getId(), role: (await user).getRole()})
         res.status(201).send({message: "Usuário logado" ,token: token})
 
     } catch (err: any) {
