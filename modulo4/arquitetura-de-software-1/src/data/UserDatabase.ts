@@ -37,5 +37,25 @@ export class UserDatabase extends BaseDatabase {
             
         }
     }
+    get = async (): Promise<any[]> => {
+
+        try {
+
+            const users: any = [];
+
+            const result = await this.connection()
+                .select("*")
+                .from("User_Arq");
+
+						for(let user of result){
+								users.push(user);
+						}
+
+            return users;
+
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+    }
 
 }
