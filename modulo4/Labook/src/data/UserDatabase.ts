@@ -1,3 +1,4 @@
+import { post } from "../types/Post";
 import { user } from "../types/User";
 import { BaseDatabase } from "./BaseDatabase";
 
@@ -14,6 +15,26 @@ export class UserDatabase extends BaseDatabase {
                 name: user.name,
                 password: user.password
             })
-            .into("User_Arq");
+            .into("labook_users");
     }
+
+    loginUser = async (
+        email: string
+    ): Promise<user> => {
+        try {
+            const result = await this.connection("labook_users")
+                .select("*")
+                .where({ email })
+            return {
+                id: result[0].id,
+                email: result[0].email,
+                name: result[0].name,
+                password: result[0].password
+            }
+        } catch (error: any) {
+            throw new Error(error.slqMessage || error.message);
+
+        }
+    }
+
 }
