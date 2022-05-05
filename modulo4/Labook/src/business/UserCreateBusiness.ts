@@ -25,7 +25,11 @@ export class UserCreateBusiness{
             if(password.length < 6){
                 throw new Error("Password must have at least 6 characters");
             }
+            const user = userDB.findUserByEmail(email);
 
+            if (await user) {
+                throw new Error("Email já cadastrado")
+            }
             const id = idGenerator.generateId();
 
             const newhashPassword = await hashManager.hash(password);

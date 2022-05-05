@@ -18,4 +18,16 @@ export class PostDatabase extends BaseDatabase {
             })
             .into("labook_posts");
     }
+    getPost = async (
+        id: string
+    ) => {
+      const post =  await this.connection('labook_posts').select(
+                 "photo",
+                "description",
+                "type",
+                "created_at",
+                "author_id"
+                ).where({id})
+        return post[0]
+    }
 }
