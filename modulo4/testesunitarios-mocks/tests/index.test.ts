@@ -81,19 +81,19 @@ describe("Testando a validação dos personagens", () => {
         });
 
 
-        const attacker : Personagem({
+        const attacker : Personagem ={
             nome: "Squirtle",
-            vida: 1500,
+            vida: 1300,
             defesa: 700,
             forca: 600
-        });
+        };
 
-        const defender : Personagem({
+        const defender : Personagem ={
             nome: "Charmander",
-            vida: 1500,
+            vida: 1300,
             defesa: 400,
             forca: 500
-        });
+        };
 
         performAttack2(attacker, defender, validarMock)
 
@@ -105,6 +105,39 @@ describe("Testando a validação dos personagens", () => {
         //quantas vezes foi retornada
         expect(validarMock).toHaveReturnedTimes(2);
     })
+    test("Testando com dois personangens, sendo um inválido", () => {
+
+
+        const validarMock = jest.fn(() => {
+            return false
+        });
+
+
+        const attacker : Personagem ={
+            nome: "Squirtle",
+            vida: 0,
+            defesa: 700,
+            forca: 600
+        };
+
+        const defender : Personagem ={
+            nome: "Charmander",
+            vida: 1500,
+            defesa: 400,
+            forca: 500
+        };
+        try{
+        performAttack2(attacker, defender, validarMock)
+        } catch (erro){
+        expect(erro.message).toBe("Invalid character")
+        //se foi chamada
+        expect(validarMock).toHaveBeenCalled();
+        //quantas vezes foi chamada
+        expect(validarMock).toHaveBeenCalledTimes(1);
+        //quantas vezes foi retornada
+        expect(validarMock).toHaveReturnedTimes(1);
+        }
+    })
     test("Testando com dois personangens inválidos", () => {
 
 
@@ -113,29 +146,24 @@ describe("Testando a validação dos personagens", () => {
         });
 
 
-        const attacker : Personagem({
+        const attacker : Personagem = {
             nome: "Squirtle",
-            vida: 0,
-            defesa: 700,
+            vida: 1500,
+            defesa: 0,
             forca: 600
-        });
+        };
 
-        const defender : Personagem({
-            nome: "Charmander",
+        const defender : Personagem = {
+            nome: "",
             vida: 1500,
             defesa: 400,
             forca: 500
-        });
+        };
         try{
         performAttack2(attacker, defender, validarMock)
         } catch (erro){
         expect(erro.message).toBe("Invalid character")
-        //se foi chamada
-        expect(validarMock).toHaveBeenCalled();
-        //quantas vezes foi chamada
-        expect(validarMock).toHaveBeenCalledTimes(2);
-        //quantas vezes foi retornada
-        expect(validarMock).toHaveReturnedTimes(2);
+        
         }
     })
 });
