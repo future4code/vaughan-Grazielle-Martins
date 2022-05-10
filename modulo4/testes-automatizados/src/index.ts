@@ -11,7 +11,7 @@ export function compras(user: User, valor: number): User | undefined {
 	return undefined
 }
 
-export function verifyAge(casino: Casino, users: Usuario[]): Result {
+export function verificacao(casino: Casino, users: Usuario[]): Result {
     const podeentrar: Usuario[] = [];
     const naopodeentra: Usuario[] = [];
   
