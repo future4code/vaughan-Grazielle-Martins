@@ -141,3 +141,105 @@ test("Testando dois usuarios americanos com 21 anos e dois brasileiros com 19 an
 	expect(result.brazilians.naopodeentra).toEqual(["Grazielle", "Junior"])
 	
 })
+
+test("Testando o tamanho do array allowed da propriedade brasilians", () => {
+    const brazilian: Usuario = {
+      name: "Astrodev",
+      age: 19,
+      nacionality: NACIONALITY.BRAZILIAN,
+    };
+
+    const casino: Casino = {
+      name: "Balada ",
+      location: LOCATION.BRAZIL,
+    };
+
+    const result = verificacao(casino, [brazilian]);
+    expect(result.brazilians.podeentrar.length).toBeGreaterThan(0);
+    expect(result.brazilians.podeentrar.length).toBeLessThan(2);
+  });
+
+  test("Testando o tamanho do array unallowed da propriedade americans", () => {
+    const american: Usuario = {
+      name: "Arthur",
+      age: 19,
+      nacionality: NACIONALITY.AMERICAN,
+    };
+
+    const casino: Casino = {
+      name: "Balada ",
+      location: LOCATION.BRAZIL,
+    };
+
+    const result = verificacao(casino, [american]);
+    expect(result.americans.naopodeentra.length).toBe(0);
+ 
+  });
+
+  
+test("Testando dois usuarios americanos e dois brasileiros com 19 anos, no estabelecimento americano", () => {
+	const user1: Usuario = {
+		name: "Arthur",
+		age: 19,
+		nacionality: NACIONALITY.AMERICAN
+	}
+	const user2: Usuario = {
+		name: "Levi",
+		age: 19,
+		nacionality: NACIONALITY.AMERICAN
+	}
+	const user3: Usuario = {
+		name: "Grazielle",
+		age: 19,
+		nacionality: NACIONALITY.BRAZILIAN
+	}
+	const user4: Usuario = {
+		name: "Junior",
+		age: 19,
+		nacionality: NACIONALITY.BRAZILIAN
+	}
+	const casino : Casino = {
+		name: "Casino Americano",
+		location: LOCATION.EUA
+	}
+
+	const result = verificacao(casino, [user1, user2, user3, user4])
+	
+	expect(result.americans.naopodeentra).toContain("Arthur")
+	expect(result.brazilians.naopodeentra).toContain("Grazielle")
+	
+})
+
+test("Testando dois usuarios americanos com 21 anos e dois brasileiros com 19 anos, no estabelecimento americano", () => {
+	const user1: Usuario = {
+		name: "Arthur",
+		age: 21,
+		nacionality: NACIONALITY.AMERICAN
+	}
+	const user2: Usuario = {
+		name: "Levi",
+		age: 21,
+		nacionality: NACIONALITY.AMERICAN
+	}
+	const user3: Usuario = {
+		name: "Grazielle",
+		age: 19,
+		nacionality: NACIONALITY.BRAZILIAN
+	}
+	const user4: Usuario = {
+		name: "Junior",
+		age: 19,
+		nacionality: NACIONALITY.BRAZILIAN
+	}
+	const casino : Casino = {
+		name: "Casino Americano",
+		location: LOCATION.EUA
+	}
+
+	const result = verificacao(casino, [user1, user2, user3, user4])
+	
+	expect(result.americans.naopodeentra.length).toBeLessThan(1)
+	expect(result.brazilians.naopodeentra.length).toBeGreaterThan(1)
+	expect(result.americans.podeentrar.length).toBe(2)
+	
+})
