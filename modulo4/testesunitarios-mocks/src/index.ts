@@ -15,7 +15,7 @@ export const validarPersonagem = (input: Personagem): boolean => {
     return true
 };
 
-//A diferença dessas duas implementações é que uma valida direto na função e a outra de inversão de dependência é necessário adicionar mais uma camada, é a estratégia de depender de interfaces
+//A diferença dessas duas implementações é que uma valida a função direto na implemnetação e a outra de inversão de dependência é necessário adicionar mais uma camada, é a estratégia de depender de interfaces
 
 export const performAttack1 = (attacker: Personagem, defender: Personagem) => {
     if (!validarPersonagem(attacker) || !validarPersonagem(defender)) {
@@ -38,3 +38,6 @@ export const performAttack2 = (attacker: Personagem, defender: Personagem, valid
    
     
 };
+
+// Exercicio 4
+//a) seria pela função performAttack, para mockar os dados com o Jest.fn
