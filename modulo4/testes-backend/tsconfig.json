@@ -1,0 +1,19 @@
+{
+   "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "sourceMap": true,
+      "outDir": "./build",
+      "rootDir": "./",
+      "removeComments": true,
+      "strict": true,
+      "noImplicitAny": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true
+      
+      // "typeRoots": [
+      //    "./custom_typings",
+      //    "./node_modules/@types"
+      //  ]
+   }
+}
