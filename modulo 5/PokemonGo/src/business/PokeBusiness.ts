@@ -26,4 +26,14 @@ export class PokeBusiness {
         return pokemons;
 
     }
+    async searchPokemonName(name: string) {
+        
+        const pokemonsname = new PokeDatabase();
+
+        const pokemons = await pokemonsname.getPokeName(name)
+
+
+        return pokemons;
+
+    }
 }

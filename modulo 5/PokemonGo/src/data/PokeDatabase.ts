@@ -24,5 +24,14 @@ export class PokeDatabase extends BaseDatabase {
 
     return pokemon
   }
+  public getPokeName = async (name: string) => {
+   
+    const pokemon = await BaseDatabase.connection()
+      .select("*")
+      .from(PokeDatabase.TABLE_NAME)
+      .where("name", name)
+    
+    return pokemon
+  }
 
 }
