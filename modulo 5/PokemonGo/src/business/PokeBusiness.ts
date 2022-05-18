@@ -6,6 +6,9 @@ export class PokeBusiness {
 
     async getPokemons(pagina: number) {
 
+        if (!pagina || pagina > 83) {
+            throw new Error("Número de página inválida.");
+        }
         let size = 20
         let offset = size * (pagina - 1)
         const pokemonslist = new PokeDatabase();
@@ -16,8 +19,10 @@ export class PokeBusiness {
         return pokemons;
 
     }
-    async searchPokemonID(row: string) {
-
+    async searchPokemonID(row: string ) {
+        if (!row ) {
+            throw new Error("Número de ID/Row inválido!");
+        }
         const pokemonsid = new PokeDatabase();
 
         const pokemons = await pokemonsid.getPokeID(row)
@@ -27,7 +32,9 @@ export class PokeBusiness {
 
     }
     async searchPokemonName(name: string) {
-        
+        if (!name) {
+            throw new Error("Nome inválido!");
+        }
         const pokemonsname = new PokeDatabase();
 
         const pokemons = await pokemonsname.getPokeName(name)
@@ -37,6 +44,9 @@ export class PokeBusiness {
 
     }
     async FilterPokemon(filter: string) {
+        if (!filter ) {
+            throw new Error("Pesquisa inválida!");
+        }
         
         const pokemons = new PokeDatabase();
 
