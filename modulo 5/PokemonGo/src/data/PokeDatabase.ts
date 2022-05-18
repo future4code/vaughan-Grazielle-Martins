@@ -33,5 +33,14 @@ export class PokeDatabase extends BaseDatabase {
     
     return pokemon
   }
+  public getPokeFilter = async (filter: string) => {
+    
+    const pokemonfilter = await BaseDatabase.connection()
+      .select("*")
+      .from(PokeDatabase.TABLE_NAME)
+      .where("Name" ,"like", `%${filter}%`)
+    
+    return pokemonfilter
+  }
 
 }

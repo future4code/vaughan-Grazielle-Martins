@@ -36,4 +36,13 @@ export class PokeBusiness {
         return pokemons;
 
     }
+    async FilterPokemon(filter: string) {
+        
+        const pokemons = new PokeDatabase();
+
+        const pokemonslistfilter = await pokemons.getPokeFilter(filter)
+        
+        return  pokemonslistfilter;
+
+    }
 }

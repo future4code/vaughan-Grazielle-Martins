@@ -21,8 +21,8 @@ export class PokeController {
 
     }
     searchPokeID = async (req: Request, res: Response) => {
-
         
+      
         try {
             const row = req.params.row
 
@@ -40,12 +40,29 @@ export class PokeController {
 
 
         try {
-             
+           
             const name = req.query.name as string
            
             const pokemon = await getpokeBusiness.searchPokemonName(name)
 
             res.status(200).send({ Pokemon: pokemon });
+
+        } catch (error: any) {
+            res.status(400).send({ error: error.message });
+        }
+
+
+    }
+    filterPoke = async (req: Request, res: Response) => {
+
+
+        try {
+         
+            const filter = req.query.filter as string
+            
+            const filterpokemon = await getpokeBusiness.FilterPokemon(filter)
+
+            res.status(200).send({ Filtro : filterpokemon });
 
         } catch (error: any) {
             res.status(400).send({ error: error.message });
