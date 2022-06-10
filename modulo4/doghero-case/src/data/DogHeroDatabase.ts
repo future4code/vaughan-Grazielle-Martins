@@ -51,15 +51,6 @@ export class DogHeroDatabase extends BaseDatabase {
 
     return pet
   }
-  // public getduration = async (id: string) => {
-    
-  //   const pet = await BaseDatabase.connection()
-    
-  //     .select("duration")
-  //     .datediff (hour from start to  end) 
-  //     .from (DogHeroDatabase.TABLE_NAME)
-  //     .where("id", id)
 
-  //   return pet
-  // }
+
 }

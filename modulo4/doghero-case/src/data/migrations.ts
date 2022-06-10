@@ -23,6 +23,14 @@ CREATE TABLE IF NOT EXISTS Pets (
     dogheroid VARCHAR(45) NOT NULL,
     FOREIGN KEY (dogheroid) REFERENCES DogHero(id)
 );
+CREATE TABLE IF NOT EXISTS start_walk ( 
+    id VARCHAR(255) PRIMARY KEY,
+    start VARCHAR(45) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS finish_walk ( 
+    id VARCHAR(255) PRIMARY KEY,
+    end VARCHAR(45) NOT NULL
+);
 
 
     `)

@@ -22,18 +22,18 @@ export class DogHeroBusiness {
             if (!date_schedule || !start || !end) {
                 throw new Error("Por favor preencha os campos ");
             }
-            start = new Date()
-            end = new Date()
+            start = new Date(`${date_schedule} ${start}`)
+            end = new Date(`${date_schedule} ${end}`)
             const id = idGenerator.generateId();
 
             let price = 0
 
             let durationstart = start.getTime()
-            
-            let durationend = end.getTime()
-            let durationinitial = Math.abs(durationstart - durationend)
 
-            durationinitial = (durationinitial / 6000) % 60
+            let durationend = end.getTime()
+            let durationinitial = Math.abs(durationend - durationstart)
+          
+            durationinitial = (durationinitial / 1000) / 60
 
             if (durationinitial <= 30) {
                 price = 25
@@ -41,7 +41,7 @@ export class DogHeroBusiness {
                 price = 35
             }
             let duration = durationinitial.toString()
-          console.log(durationinitial)
+           
             const dados: DogHerotype = {
                 id,
                 date_schedule,
@@ -52,11 +52,11 @@ export class DogHeroBusiness {
                 start,
                 end
             }
-            
+
             await dogheroDB.createDoghero(dados);
-            
+
             const token = authenticator.generateToken({ id });
-          
+
             return token;
 
         } catch (error: any) {
@@ -70,7 +70,7 @@ export class DogHeroBusiness {
         }
         let size = 20
         let offset = size * (pagina - 1)
-        
+
         let doghero = []
 
         if (date_schedule) {
@@ -85,15 +85,16 @@ export class DogHeroBusiness {
 
     }
     async searchPetID(id: string) {
-        if (!id ) {
+        if (!id) {
             throw new Error("Número de ID inválido!");
         }
-      
+
         const pet = await dogheroDB.getPetID(id)
 
 
         return pet;
 
     }
-    
+
 }
+
