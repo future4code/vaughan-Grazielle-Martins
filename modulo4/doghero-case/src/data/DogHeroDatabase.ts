@@ -30,26 +30,36 @@ export class DogHeroDatabase extends BaseDatabase {
 
     return passeios
   }
+
   public getDogHeroDate = async (offset: number, date_schedule: string) => {
-
-    const pets = await BaseDatabase.connection()
-      .select("*")
-      .from(DogHeroDatabase.TABLE_NAME)
-      .limit(20)
-      .offset(offset)
-      .where("date_schedule", date_schedule)
-      
-
-    return pets
-  }
-  public getDateFilter = async (filter: string) => {
 
     const datefilter = await BaseDatabase.connection()
       .select("*")
       .from(DogHeroDatabase.TABLE_NAME)
-      .where("date_schedule", "like", `%${filter}%`)
+      .limit(20)
+      .offset(offset)
+      .where("date_schedule", ">=", `${date_schedule}`)
 
     return datefilter
   }
+  public getPetID = async (id: string) => {
 
+    const pet = await BaseDatabase.connection()
+      .select("duration")
+      .from(DogHeroDatabase.TABLE_NAME)
+      .where("id", id)
+
+    return pet
+  }
+  // public getduration = async (id: string) => {
+    
+  //   const pet = await BaseDatabase.connection()
+    
+  //     .select("duration")
+  //     .datediff (hour from start to  end) 
+  //     .from (DogHeroDatabase.TABLE_NAME)
+  //     .where("id", id)
+
+  //   return pet
+  // }
 }

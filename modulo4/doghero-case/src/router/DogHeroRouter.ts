@@ -7,3 +7,4 @@ const dogheroController = new DogHeroController();
 
 dogheroRouter.post("/create", dogheroController.createDogHero);
 dogheroRouter.get("/index", dogheroController.index );
+dogheroRouter.get("/show/:id", dogheroController.show );

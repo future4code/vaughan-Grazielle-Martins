@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { DogHeroDatabase } from "../data/DogHeroDatabase";
+import { PetDatabase } from "../data/PetDatabase";
 import { DogHerotype } from "../model/Doghero";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenGenerator } from "../services/tokenGenerator";
 
 
-const userDB = new DogHeroDatabase();
+const dogheroDB = new DogHeroDatabase();
 const authenticator = new TokenGenerator();
 const idGenerator = new IdGenerator();
 
@@ -40,9 +41,7 @@ export class DogHeroBusiness {
                 price = 35
             }
             let duration = durationinitial.toString()
-          
-
-
+          console.log(durationinitial)
             const dados: DogHerotype = {
                 id,
                 date_schedule,
@@ -54,7 +53,7 @@ export class DogHeroBusiness {
                 end
             }
             
-            await userDB.createDoghero(dados);
+            await dogheroDB.createDoghero(dados);
             
             const token = authenticator.generateToken({ id });
           
@@ -71,14 +70,13 @@ export class DogHeroBusiness {
         }
         let size = 20
         let offset = size * (pagina - 1)
-        const dogherolist = new DogHeroDatabase();
-
+        
         let doghero = []
 
         if (date_schedule) {
-            doghero = await dogherolist.getDogHeroDate(offset, date_schedule)
+            doghero = await dogheroDB.getDogHeroDate(offset, date_schedule)
         } else {
-            doghero = await dogherolist.getDogHero(offset)
+            doghero = await dogheroDB.getDogHero(offset)
         }
 
 
@@ -86,40 +84,16 @@ export class DogHeroBusiness {
         return doghero;
 
     }
-    async searchPokemonID(row: string) {
-        // if (!row ) {
-        //     throw new Error("Número de ID/Row inválido!");
-        // }
-        // const pokemonsid = new DogHeroDatabase();
-
-        // const pokemons = await pokemonsid.getPokeID(row)
-
-
-        // return pokemons;
-
-    }
-    async searchPokemonName(name: string) {
-        // if (!name) {
-        //     throw new Error("Nome inválido!");
-        // }
-        // const pokemonsname = new DogHeroDatabase();
-
-        // const pokemons = await pokemonsname.getPokeName(name)
+    async searchPetID(id: string) {
+        if (!id ) {
+            throw new Error("Número de ID inválido!");
+        }
+      
+        const pet = await dogheroDB.getPetID(id)
 
 
-        // return pokemons;
+        return pet;
 
     }
-    async FilterPokemon(filter: string) {
-        // if (!filter ) {
-        //     throw new Error("Pesquisa inválida!");
-        // }
-
-        // const pokemons = new DogHeroDatabase();
-
-        // const pokemonslistfilter = await pokemons.getPokeFilter(filter)
-
-        // return  pokemonslistfilter;
-
-    }
+    
 }

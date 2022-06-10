@@ -5,4 +5,4 @@ export const petRouter = express.Router();
 
 const petController = new PetController();
 
-// petController.get("/getAll", petController);
+petRouter.post("/create", petController.createPet);

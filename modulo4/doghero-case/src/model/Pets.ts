@@ -1,5 +1,9 @@
 export interface PetInputDTO {
-  id: string;
+  name: string;
+  dogheroid: string;
+}
+export type Pettype = {
+  id: string
   name: string;
   dogheroid: string;
 }

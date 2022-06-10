@@ -2,22 +2,6 @@ import { Request, Response } from 'express';
 import { DogHeroBusiness } from '../business/DogHerobusiness';
 import { DogHeroInputDTO } from '../model/Doghero';
 
-const getdogheroBusiness = new DogHeroBusiness()
-
-//A API para criação de passeio deve receber todos os atributos listados acima menos status;
-
-// A API de index deve receber um filtro através de uma flag para retornar:
-
-// Apenas os próximos passeios a partir de hoje ou todos.
-// Além disso, paginação não é obrigatório, mas seria um plus;
-
-//O preço é calculado dinamicamente.
-
-// Um passeio de 30 minutos para 1 cachorro custa R$25, sendo cada cachorro adicional R$15.
-// Um passeio de 60 minutos para 1 cachorro custa R$35, sendo cada cachorro adicional R$20;
-
-//A API de show deve retornar a duração real do passeio, ou seja, a diferença entre o início e o término;
-
 const dogheroBusiness = new DogHeroBusiness()
 
 export class DogHeroController {
@@ -52,7 +36,7 @@ export class DogHeroController {
             const pagina = Number(req.query.pagina)
             const date_schedule = req.query.date_schedule as string
 
-            const doghero = await getdogheroBusiness.index(pagina, date_schedule)
+            const doghero = await dogheroBusiness.index(pagina, date_schedule)
 
             res.status(200).send({ "Todos os passeios": doghero });
 
@@ -62,38 +46,21 @@ export class DogHeroController {
 
 
     }
-    // searchPokeID = async (req: Request, res: Response) => {
+    show = async (req: Request, res: Response) => {
 
 
-    //     try {
-    //         const row = req.params.row
+        try {
+            const id = req.params.id
 
-    //         const pokemon = await getpokeBusiness.searchPokemonID(row)
+            const duration = await dogheroBusiness.searchPetID(id)
 
-    //         res.status(200).send({ Pokemon: pokemon });
+            res.status(200).send({ "Duração do passeio": duration });
 
-    //     } catch (error: any) {
-    //         res.status(400).send({ error: error.message });
-    //     }
-
-
-    // }
-    // searchPokeName = async (req: Request, res: Response) => {
+        } catch (error: any) {
+            res.status(400).send({ error: error.message });
+        }
 
 
-    //     try {
+    }
 
-    //         const name = req.query.name as string
-
-    //         const pokemon = await getpokeBusiness.searchPokemonName(name)
-
-    //         res.status(200).send({ Pokemon: pokemon });
-
-    //     } catch (error: any) {
-    //         res.status(400).send({ error: error.message });
-    //     }
-
-
-    // }
-   
 }
